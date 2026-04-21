@@ -18,7 +18,8 @@ from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 import database
-import scraper
+#import scraper.orchestrator
+from scrapers.orchestrator import scrape_component
 import alternatives as alt_engine
 
 app = FastAPI(title="Smart Component Information System", version="3.0.0")
