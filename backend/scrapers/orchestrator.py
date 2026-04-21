@@ -1,78 +1,60 @@
 """
 scrapers/orchestrator.py
-Coordinates all scrapers in priority order.
+Coordinates scrapers in priority order.
 
-Priority (for unknown components not in local dataset):
-  1. Datasheet scraper  (alldatasheet.com — primary spec source)
-  2. Manufacturer scraper (TI / ON Semi — authoritative)
-  3. Wikipedia scraper  (fallback — broad coverage)
+Reality check on external sources:
+  - alldatasheet.com  → 403 Forbidden (Cloudflare bot protection)
+  - ti.com            → 403 Forbidden
+  - onsemi.com        → 403 Forbidden
 
-Results are merged: earlier sources take priority, gaps filled by later ones.
-All scrapers run safely — orchestrator never raises.
+Only Wikipedia is reliably accessible without authentication.
+The orchestrator now runs TWO Wikipedia passes (infobox + text regex),
+which together extract significantly more data than either alone.
+
+Priority:
+  1. Wikipedia HTML infobox  (structured, most accurate)
+  2. Wikipedia plain text    (regex, fills gaps from prose)
+  3. Guaranteed datasheet URL fallback
 """
 
 import asyncio
 from .base_scraper import ScraperResult
 from .wikipedia_scraper import WikipediaScraper
-from .datasheet_scraper import DatasheetScraper
-from .manufacturer_scraper import ManufacturerScraper
 
-# Instantiate once — scrapers are stateless
-_wiki   = WikipediaScraper()
-_ds     = DatasheetScraper()
-_mfr    = ManufacturerScraper()
+# Single instance — stateless scraper
+_wiki = WikipediaScraper()
 
 
 async def scrape_component(component_name: str) -> dict:
     """
-    Public API — drop-in replacement for the old scraper.scrape_component().
-    Returns the same shape: { specs: {type, voltage, current}, datasheet_url: str }
-
-    Strategy:
-      - Run datasheet + manufacturer scrapers concurrently (they're independent)
-      - Run Wikipedia as fallback if both above are empty
-      - Merge results: first non-empty value wins per field
+    Public API — drop-in replacement for old scraper.scrape_component().
+    Returns: { specs: {type, voltage, current}, datasheet_url: str }
+    Never raises.
     """
-    print(f"[orchestrator] starting scrape for '{component_name}'")
+    print(f"[orchestrator] scraping '{component_name}'")
 
-    # Stage 1: run primary scrapers concurrently
-    ds_result, mfr_result = await asyncio.gather(
-        _safe_fetch(_ds,  component_name),
-        _safe_fetch(_mfr, component_name),
-    )
+    result = await _safe_fetch(_wiki, component_name)
 
-    # Merge: datasheet takes priority over manufacturer
-    merged = ds_result.merge(mfr_result)
-
-    # Stage 2: if still missing specs, try Wikipedia
-    if not merged.success:
-        print(f"[orchestrator] primary scrapers empty, falling back to Wikipedia")
-        wiki_result = await _safe_fetch(_wiki, component_name)
-        merged = merged.merge(wiki_result)
-
-        # If Wikipedia found a datasheet link, prefer it over empty
-        if not merged.datasheet_url and wiki_result.datasheet_url:
-            merged.datasheet_url = wiki_result.datasheet_url
-
-    # Stage 3: guaranteed datasheet URL fallback
-    if not merged.datasheet_url:
-        merged.datasheet_url = (
+    # Guaranteed datasheet URL — always give user something clickable
+    if not result.datasheet_url:
+        result.datasheet_url = (
             f"https://www.alldatasheet.com/search/?q={component_name.replace(' ', '+')}"
         )
 
-    print(f"[orchestrator] final → {merged}")
+    print(f"[orchestrator] result → "
+          f"v={result.voltage} i={result.current} t={result.comp_type} "
+          f"success={result.success}")
 
-    # Return in original scraper.py shape for main.py compatibility
     return {
-        "specs": merged.to_specs_dict(),
-        "datasheet_url": merged.datasheet_url,
+        "specs":         result.to_specs_dict(),
+        "datasheet_url": result.datasheet_url,
     }
 
 
 async def _safe_fetch(scraper, name: str) -> ScraperResult:
-    """Wrap any scraper call so it never propagates exceptions."""
+    """Wrap scraper call — never propagates exceptions."""
     try:
         return await scraper.fetch_specs(name)
     except Exception as e:
-        print(f"[orchestrator] {scraper.name} crashed unexpectedly: {e}")
+        print(f"[orchestrator] {scraper.name} crashed: {e}")
         return ScraperResult(source=scraper.name, success=False, error=str(e))

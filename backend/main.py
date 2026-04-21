@@ -82,7 +82,7 @@ async def get_component(name: str = Query(..., min_length=1)):
 
     # 4. Scrape Wikipedia only if dataset had no specs
     if not dataset_entry:
-        scraped       = await scraper.scrape_component(canonical)
+        scraped = await scrape_component(canonical)
         scraped_specs = scraped.get("specs", {})
         specs = {
             "type":    scraped_specs.get("type", ""),
@@ -93,6 +93,16 @@ async def get_component(name: str = Query(..., min_length=1)):
             f"https://www.alldatasheet.com/search/?q={canonical.replace(' ', '+')}"
 
     # 5. Build + cache + return
+    # result = {
+    #     "name":          wiki_title or canonical,
+    #     "description":   description,
+    #     "specs":         specs,
+    #     "datasheet_url": datasheet_url,
+    #     "source":        "dataset" if dataset_entry else "live",
+    # }
+
+    # database.save_component(result)
+    # return result
     result = {
         "name":          wiki_title or canonical,
         "description":   description,
@@ -100,10 +110,13 @@ async def get_component(name: str = Query(..., min_length=1)):
         "datasheet_url": datasheet_url,
         "source":        "dataset" if dataset_entry else "live",
     }
-
     database.save_component(result)
-    return result
 
+# Also cache under the original search term so next lookup hits
+    if name.upper() != (wiki_title or canonical).upper():
+        database.save_component({**result, "name": name})
+
+    return result
 
 # ── /alternatives ─────────────────────────────────────────────────────────────
 
