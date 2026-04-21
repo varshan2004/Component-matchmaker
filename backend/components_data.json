@@ -1,0 +1,290 @@
+{
+  "LM7805": {
+    "name": "LM7805", "type": "Positive Voltage Regulator",
+    "voltage": "5V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7805.pdf",
+    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+  },
+  "LM7806": {
+    "name": "LM7806", "type": "Positive Voltage Regulator",
+    "voltage": "6V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7806.pdf",
+    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+  },
+  "LM7808": {
+    "name": "LM7808", "type": "Positive Voltage Regulator",
+    "voltage": "8V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7808.pdf",
+    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+  },
+  "LM7809": {
+    "name": "LM7809", "type": "Positive Voltage Regulator",
+    "voltage": "9V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7809.pdf",
+    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+  },
+  "LM7812": {
+    "name": "LM7812", "type": "Positive Voltage Regulator",
+    "voltage": "12V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7812.pdf",
+    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+  },
+  "LM7815": {
+    "name": "LM7815", "type": "Positive Voltage Regulator",
+    "voltage": "15V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7815.pdf",
+    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+  },
+  "LM7824": {
+    "name": "LM7824", "type": "Positive Voltage Regulator",
+    "voltage": "24V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7824.pdf",
+    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+  },
+  "L7805CV": {
+    "name": "L7805CV", "type": "Positive Voltage Regulator",
+    "voltage": "5V", "current": "1.5A",
+    "datasheet_url": "https://www.st.com/resource/en/datasheet/l78.pdf",
+    "tags": ["regulator", "linear", "positive", "fixed", "78xx", "st"]
+  },
+  "L7812CV": {
+    "name": "L7812CV", "type": "Positive Voltage Regulator",
+    "voltage": "12V", "current": "1.5A",
+    "datasheet_url": "https://www.st.com/resource/en/datasheet/l78.pdf",
+    "tags": ["regulator", "linear", "positive", "fixed", "78xx", "st"]
+  },
+  "LM317": {
+    "name": "LM317", "type": "Adjustable Voltage Regulator",
+    "voltage": "1.25-37V", "current": "1.5A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm317.pdf",
+    "tags": ["regulator", "linear", "positive", "adjustable"]
+  },
+  "LM337": {
+    "name": "LM337", "type": "Adjustable Voltage Regulator",
+    "voltage": "-1.25 to -37V", "current": "1.5A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm337.pdf",
+    "tags": ["regulator", "linear", "negative", "adjustable"]
+  },
+  "LM7905": {
+    "name": "LM7905", "type": "Negative Voltage Regulator",
+    "voltage": "-5V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm79.pdf",
+    "tags": ["regulator", "linear", "negative", "fixed", "79xx"]
+  },
+  "LM7912": {
+    "name": "LM7912", "type": "Negative Voltage Regulator",
+    "voltage": "-12V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm79.pdf",
+    "tags": ["regulator", "linear", "negative", "fixed", "79xx"]
+  },
+  "LM7915": {
+    "name": "LM7915", "type": "Negative Voltage Regulator",
+    "voltage": "-15V", "current": "1A",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm79.pdf",
+    "tags": ["regulator", "linear", "negative", "fixed", "79xx"]
+  },
+  "LM741": {
+    "name": "LM741", "type": "Op-Amp",
+    "voltage": "±18V", "current": "25mA",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm741.pdf",
+    "tags": ["opamp", "amplifier", "single"]
+  },
+  "LM358": {
+    "name": "LM358", "type": "Op-Amp",
+    "voltage": "3-32V", "current": "20mA",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm358.pdf",
+    "tags": ["opamp", "amplifier", "dual"]
+  },
+  "TL071": {
+    "name": "TL071", "type": "Op-Amp",
+    "voltage": "±18V", "current": "17mA",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/tl071.pdf",
+    "tags": ["opamp", "amplifier", "jfet", "single"]
+  },
+  "TL081": {
+    "name": "TL081", "type": "Op-Amp",
+    "voltage": "±18V", "current": "17mA",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/tl081.pdf",
+    "tags": ["opamp", "amplifier", "jfet", "single"]
+  },
+  "LM324": {
+    "name": "LM324", "type": "Op-Amp",
+    "voltage": "3-32V", "current": "20mA",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm324.pdf",
+    "tags": ["opamp", "amplifier", "quad"]
+  },
+  "NE5532": {
+    "name": "NE5532", "type": "Op-Amp",
+    "voltage": "±15V", "current": "16mA",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/ne5532.pdf",
+    "tags": ["opamp", "amplifier", "dual", "audio"]
+  },
+  "NE555": {
+    "name": "NE555", "type": "Timer IC",
+    "voltage": "4.5-16V", "current": "200mA",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/ne555.pdf",
+    "tags": ["timer", "oscillator", "pwm"]
+  },
+  "LM555": {
+    "name": "LM555", "type": "Timer IC",
+    "voltage": "4.5-16V", "current": "200mA",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
+    "tags": ["timer", "oscillator", "pwm"]
+  },
+  "NE556": {
+    "name": "NE556", "type": "Timer IC",
+    "voltage": "4.5-16V", "current": "200mA",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/ne556.pdf",
+    "tags": ["timer", "oscillator", "dual"]
+  },
+  "BC547": {
+    "name": "BC547", "type": "NPN Transistor",
+    "voltage": "45V", "current": "100mA",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC547-D.PDF",
+    "tags": ["transistor", "npn", "small-signal"]
+  },
+  "BC548": {
+    "name": "BC548", "type": "NPN Transistor",
+    "voltage": "30V", "current": "100mA",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC548-D.PDF",
+    "tags": ["transistor", "npn", "small-signal"]
+  },
+  "2N2222": {
+    "name": "2N2222", "type": "NPN Transistor",
+    "voltage": "40V", "current": "600mA",
+    "datasheet_url": "https://www.onsemi.com/pdf/datasheet/p2n2222a-d.pdf",
+    "tags": ["transistor", "npn", "general-purpose"]
+  },
+  "2N3904": {
+    "name": "2N3904", "type": "NPN Transistor",
+    "voltage": "40V", "current": "200mA",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/2N3903-D.PDF",
+    "tags": ["transistor", "npn", "general-purpose"]
+  },
+  "TIP31C": {
+    "name": "TIP31C", "type": "NPN Power Transistor",
+    "voltage": "100V", "current": "3A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP31C-D.PDF",
+    "tags": ["transistor", "npn", "power"]
+  },
+  "TIP41C": {
+    "name": "TIP41C", "type": "NPN Power Transistor",
+    "voltage": "100V", "current": "6A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP41-D.PDF",
+    "tags": ["transistor", "npn", "power"]
+  },
+  "BD135": {
+    "name": "BD135", "type": "NPN Power Transistor",
+    "voltage": "45V", "current": "1.5A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/BD135-D.PDF",
+    "tags": ["transistor", "npn", "power"]
+  },
+  "BC557": {
+    "name": "BC557", "type": "PNP Transistor",
+    "voltage": "45V", "current": "100mA",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC556-D.PDF",
+    "tags": ["transistor", "pnp", "small-signal"]
+  },
+  "BC558": {
+    "name": "BC558", "type": "PNP Transistor",
+    "voltage": "30V", "current": "100mA",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC556-D.PDF",
+    "tags": ["transistor", "pnp", "small-signal"]
+  },
+  "2N3906": {
+    "name": "2N3906", "type": "PNP Transistor",
+    "voltage": "40V", "current": "200mA",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/2N3906-D.PDF",
+    "tags": ["transistor", "pnp", "general-purpose"]
+  },
+  "TIP32C": {
+    "name": "TIP32C", "type": "PNP Power Transistor",
+    "voltage": "100V", "current": "3A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP32-D.PDF",
+    "tags": ["transistor", "pnp", "power"]
+  },
+  "TIP42C": {
+    "name": "TIP42C", "type": "PNP Power Transistor",
+    "voltage": "100V", "current": "6A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP42-D.PDF",
+    "tags": ["transistor", "pnp", "power"]
+  },
+  "IRF540N": {
+    "name": "IRF540N", "type": "N-Channel MOSFET",
+    "voltage": "100V", "current": "33A",
+    "datasheet_url": "https://www.infineon.com/dgdl/irf540n.pdf?fileId=5546d462533600a40153563b3a9f220d",
+    "tags": ["mosfet", "n-channel", "power"]
+  },
+  "IRF840": {
+    "name": "IRF840", "type": "N-Channel MOSFET",
+    "voltage": "500V", "current": "8A",
+    "datasheet_url": "https://www.vishay.com/docs/91291/irf840.pdf",
+    "tags": ["mosfet", "n-channel", "power", "high-voltage"]
+  },
+  "IRFZ44N": {
+    "name": "IRFZ44N", "type": "N-Channel MOSFET",
+    "voltage": "55V", "current": "49A",
+    "datasheet_url": "https://www.infineon.com/dgdl/irfz44n.pdf?fileId=5546d462533600a4015356408dc421a6",
+    "tags": ["mosfet", "n-channel", "power", "logic-level"]
+  },
+  "2N7000": {
+    "name": "2N7000", "type": "N-Channel MOSFET",
+    "voltage": "60V", "current": "200mA",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/2N7000-D.PDF",
+    "tags": ["mosfet", "n-channel", "small-signal"]
+  },
+  "IRF9540N": {
+    "name": "IRF9540N", "type": "P-Channel MOSFET",
+    "voltage": "100V", "current": "23A",
+    "datasheet_url": "https://www.infineon.com/dgdl/irf9540n.pdf?fileId=5546d462533600a4015356455f5625bd",
+    "tags": ["mosfet", "p-channel", "power"]
+  },
+  "IRF9630": {
+    "name": "IRF9630", "type": "P-Channel MOSFET",
+    "voltage": "200V", "current": "6.5A",
+    "datasheet_url": "https://www.vishay.com/docs/91252/91252.pdf",
+    "tags": ["mosfet", "p-channel", "power", "high-voltage"]
+  },
+  "1N4007": {
+    "name": "1N4007", "type": "Rectifier Diode",
+    "voltage": "1000V", "current": "1A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N4001-D.PDF",
+    "tags": ["diode", "rectifier"]
+  },
+  "1N4001": {
+    "name": "1N4001", "type": "Rectifier Diode",
+    "voltage": "50V", "current": "1A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N4001-D.PDF",
+    "tags": ["diode", "rectifier"]
+  },
+  "1N5408": {
+    "name": "1N5408", "type": "Rectifier Diode",
+    "voltage": "1000V", "current": "3A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N5400-D.PDF",
+    "tags": ["diode", "rectifier", "power"]
+  },
+  "1N4148": {
+    "name": "1N4148", "type": "Signal Diode",
+    "voltage": "100V", "current": "200mA",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N914-D.PDF",
+    "tags": ["diode", "signal", "switching", "fast"]
+  },
+  "1N914": {
+    "name": "1N914", "type": "Signal Diode",
+    "voltage": "100V", "current": "200mA",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N914-D.PDF",
+    "tags": ["diode", "signal", "switching"]
+  },
+  "1N5819": {
+    "name": "1N5819", "type": "Schottky Diode",
+    "voltage": "40V", "current": "1A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N5817-D.PDF",
+    "tags": ["diode", "schottky", "fast"]
+  },
+  "1N5822": {
+    "name": "1N5822", "type": "Schottky Diode",
+    "voltage": "40V", "current": "3A",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N5820-D.PDF",
+    "tags": ["diode", "schottky", "fast", "power"]
+  }
+}

@@ -1,0 +1,29 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --accent:     #185FA5;
+  --accent-dk:  #0C447C;
+  --accent-lt:  #E6F1FB;
+  --surface:    #F5F7FA;
+  --border:     #E5E7EB;
+  --text-main:  #111827;
+  --text-muted: #6B7280;
+  --radius:     12px;
+  --font-sans:  'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono:  'IBM Plex Mono', monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--surface);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
