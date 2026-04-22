@@ -1,14 +1,13 @@
 """
-Smart Component Information System — Phase 3
-Fixes: dataset-first lookup (no more Wikipedia redirects for known parts)
-New:   GET /alternatives?name= endpoint
-
+Smart Component Information System — Phase 3.3
 Resolution flow for /component:
-  1. SQLite cache hit?       → return immediately
-  2. Local dataset match?    → use those specs + datasheet
-  3. Wikipedia API           → description text
-  4. Wikipedia scraper       → supplementary specs (only if not in dataset)
-  5. Save → SQLite → return
+  1. SQLite cache        → return immediately (AI description already stored)
+  2. Local dataset       → exact specs + real datasheet PDF
+  3. Wikipedia API       → description text (context for AI)
+  4. Wikipedia scraper   → specs for unknown parts
+  5a. OpenRouter explain → if we have specs/description from above sources
+  5b. OpenRouter generate→ if EVERYTHING failed — AI generates specs from knowledge
+  6. Save to cache → return
 """
 
 import json
@@ -18,11 +17,11 @@ from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 import database
-#import scraper.orchestrator
-from scrapers.orchestrator import scrape_component
 import alternatives as alt_engine
+from scrapers.orchestrator import scrape_component
+from openrouter_api import explain_component, generate_component, generate_alternatives
 
-app = FastAPI(title="Smart Component Information System", version="3.0.0")
+app = FastAPI(title="Smart Component Information System", version="3.3.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,7 +33,6 @@ app.add_middleware(
 WIKIPEDIA_API = "https://en.wikipedia.org/w/api.php"
 HEADERS = {"User-Agent": "SmartComponentSystem/1.0 (educational; contact@example.com)"}
 
-# Load local component dataset on startup
 _DATASET_PATH = Path(__file__).parent / "components_data.json"
 with open(_DATASET_PATH) as f:
     COMPONENT_DATASET: dict = json.load(f)
@@ -43,31 +41,29 @@ with open(_DATASET_PATH) as f:
 @app.on_event("startup")
 def on_startup():
     database.init_db()
-    print(f"[startup] DB ready | dataset has {len(COMPONENT_DATASET)} components")
+    print(f"[startup] DB ready | dataset={len(COMPONENT_DATASET)} | openrouter=enabled")
 
 
 # ── /component ────────────────────────────────────────────────────────────────
 
 @app.get("/component")
 async def get_component(name: str = Query(..., min_length=1)):
-    """
-    GET /component?name=LM7805
-    Returns: name, description, specs, datasheet_url, source
-    """
-    # 1. Cache check
+
+    # 1. Cache — AI description already stored, return immediately
     cached = database.get_cached(name)
     if cached:
         print(f"[component] cache hit: '{name}'")
         return cached
 
-    # 2. Dataset lookup (case-insensitive, exact match first)
+    # 2. Local dataset
     dataset_entry = _dataset_lookup(name)
     specs         = {}
     datasheet_url = ""
+    description   = ""
 
     if dataset_entry:
-        print(f"[component] dataset hit: '{name}' → {dataset_entry['name']}")
-        specs         = {
+        print(f"[component] dataset hit: '{name}'")
+        specs = {
             "type":    dataset_entry.get("type", ""),
             "voltage": dataset_entry.get("voltage", ""),
             "current": dataset_entry.get("current", ""),
@@ -77,74 +73,104 @@ async def get_component(name: str = Query(..., min_length=1)):
     else:
         canonical = name
 
-    # 3. Wikipedia description
-    description, wiki_title = await _fetch_wikipedia_description(canonical)
+    # 3. Wikipedia description — best effort, never fatal
+    try:
+        wiki_name             = _simplify_name(canonical)
+        wiki_desc, wiki_title = await _fetch_wikipedia_description(wiki_name)
+        description           = wiki_desc
+        # Only update canonical for unknown components — prevents BC547→BC548 rename
+        if not dataset_entry:
+            canonical = wiki_title
+        print(f"[component] Wikipedia hit for '{name}'")
+    except HTTPException:
+        print(f"[component] no Wikipedia page for '{name}', continuing to scraper")
 
-    # 4. Scrape Wikipedia only if dataset had no specs
+    # 4. Scrape specs only for unknown components
     if not dataset_entry:
-        scraped = await scrape_component(canonical)
+        print(f"[component] scraping specs for '{canonical}'")
+        scraped       = await scrape_component(canonical)
         scraped_specs = scraped.get("specs", {})
         specs = {
             "type":    scraped_specs.get("type", ""),
             "voltage": scraped_specs.get("voltage", ""),
             "current": scraped_specs.get("current", ""),
         }
-        datasheet_url = scraped.get("datasheet_url", "") or \
+        if not datasheet_url:
+            datasheet_url = scraped.get("datasheet_url", "")
+
+    # 5. OpenRouter — two modes depending on what we found
+    ai_generated = False
+
+    if description or any(specs.values()):
+        # 5a. We have some data — AI explains it in plain English
+        print(f"[component] generating AI explanation for '{canonical}'")
+        ai_explanation = await explain_component(canonical, specs, description)
+        final_description = ai_explanation if ai_explanation else description
+
+    else:
+        # 5b. Everything failed — AI generates specs from its own knowledge
+        print(f"[component] no data found, asking AI to generate for '{canonical}'")
+        ai_data = await generate_component(canonical)
+
+        if not ai_data:
+            # AI also doesn't know it — genuine 404
+            raise HTTPException(
+                status_code=404,
+                detail=f"'{name}' not found. Try a more specific component name."
+            )
+
+        # Use AI-generated data
+        ai_generated      = True
+        final_description = ai_data.get("description", "")
+        ai_specs          = ai_data.get("specs", {})
+        specs = {
+            "type":    ai_specs.get("type", ""),
+            "voltage": ai_specs.get("voltage", ""),
+            "current": ai_specs.get("current", ""),
+        }
+        if not datasheet_url:
+            datasheet_url = ai_data.get("datasheet_url", "")
+
+    # Guaranteed datasheet fallback
+    if not datasheet_url:
+        datasheet_url = (
             f"https://www.alldatasheet.com/search/?q={canonical.replace(' ', '+')}"
+        )
 
-    # 5. Build + cache + return
-    # result = {
-    #     "name":          wiki_title or canonical,
-    #     "description":   description,
-    #     "specs":         specs,
-    #     "datasheet_url": datasheet_url,
-    #     "source":        "dataset" if dataset_entry else "live",
-    # }
-
-    # database.save_component(result)
-    # return result
+    # 6. Build + cache
+    source = "dataset" if dataset_entry else ("ai" if ai_generated else "live")
     result = {
-        "name":          wiki_title or canonical,
-        "description":   description,
+        "name":          canonical,
+        "description":   final_description,
         "specs":         specs,
         "datasheet_url": datasheet_url,
-        "source":        "dataset" if dataset_entry else "live",
+        "source":        source,
     }
+
     database.save_component(result)
 
-# Also cache under the original search term so next lookup hits
-    if name.upper() != (wiki_title or canonical).upper():
+    # Cache under original search term too
+    if name.upper() != canonical.upper():
         database.save_component({**result, "name": name})
 
     return result
+
 
 # ── /alternatives ─────────────────────────────────────────────────────────────
 
 @app.get("/alternatives")
 async def get_alternatives(name: str = Query(..., min_length=1)):
-    """
-    GET /alternatives?name=LM7805
-    Returns top alternatives from dataset based on type + voltage + current match.
-    """
-    # Try dataset first for specs
     dataset_entry = _dataset_lookup(name)
     if dataset_entry:
-        specs = {
-            "type":    dataset_entry.get("type", ""),
-            "voltage": dataset_entry.get("voltage", ""),
-            "current": dataset_entry.get("current", ""),
-        }
+        specs     = {k: dataset_entry.get(k, "") for k in ("type", "voltage", "current")}
         canonical = dataset_entry["name"]
     else:
-        # Try cache
         cached = database.get_cached(name)
         if cached:
-            specs     = cached.get("specs", {})
-            canonical = cached.get("name", name)
+            specs, canonical = cached.get("specs", {}), cached.get("name", name)
         else:
-            # Fetch live
             try:
-                comp = await get_component(name)
+                comp      = await get_component(name)
                 specs     = comp.get("specs", {})
                 canonical = comp.get("name", name)
             except HTTPException:
@@ -155,22 +181,27 @@ async def get_alternatives(name: str = Query(..., min_length=1)):
 
     found = alt_engine.find_alternatives(canonical, specs, top_n=4)
 
-    return {
-        "component":   canonical,
-        "specs":       specs,
-        "alternatives": found,
-    }
+    # Dataset returned nothing → ask AI for alternatives
+    if not found:
+        print(f"[alternatives] no dataset matches for '{canonical}', asking AI")
+        found = await generate_alternatives(canonical, specs)
+
+    return {"component": canonical, "specs": specs, "alternatives": found}
 
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "phase": 3, "dataset_size": len(COMPONENT_DATASET)}
+    return {
+        "status":       "ok",
+        "phase":        "3.3",
+        "openrouter":   "enabled",
+        "dataset_size": len(COMPONENT_DATASET),
+    }
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _dataset_lookup(name: str) -> dict | None:
-    """Case-insensitive exact match against local dataset."""
     key = name.strip().upper()
     for k, v in COMPONENT_DATASET.items():
         if k.upper() == key:
@@ -178,8 +209,15 @@ def _dataset_lookup(name: str) -> dict | None:
     return None
 
 
+def _simplify_name(name: str) -> str:
+    """Strip package suffixes for better Wikipedia matches."""
+    import re
+    simplified = re.sub(r'[-/][A-Z]{1,4}$', '', name.strip())
+    simplified = re.sub(r'[A-Z]\d[A-Z]\d?$', '', simplified)
+    return simplified.strip('-') or name
+
+
 async def _fetch_wikipedia_description(name: str) -> tuple[str, str]:
-    """Fetch plain-text intro from Wikipedia. Returns (description, canonical_title)."""
     params = {
         "action": "query", "format": "json",
         "titles": name, "prop": "extracts",
@@ -197,20 +235,14 @@ async def _fetch_wikipedia_description(name: str) -> tuple[str, str]:
         raise HTTPException(status_code=502, detail=f"Wikipedia returned {r.status_code}.")
 
     pages = r.json().get("query", {}).get("pages", {})
-
     if "-1" in pages:
-        raise HTTPException(
-            status_code=404,
-            detail=f"'{name}' not found on Wikipedia. Try a more specific name."
-        )
+        raise HTTPException(status_code=404, detail=f"'{name}' not found on Wikipedia.")
 
     page    = next(iter(pages.values()))
     extract = page.get("extract", "").strip()
-
     if not extract:
-        raise HTTPException(status_code=404, detail=f"No description found for '{name}'.")
+        raise HTTPException(status_code=404, detail=f"No description for '{name}'.")
 
     sentences  = [s.strip() for s in extract.split(".") if s.strip()]
     short_desc = ". ".join(sentences[:3]) + "."
-
     return short_desc, page.get("title", name)

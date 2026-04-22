@@ -31,10 +31,17 @@ def type_group(t: str) -> str:
     if "pnp"               in t: return "transistor_pnp"
     if "op-amp"            in t or "opamp" in t or "operational" in t: return "opamp"
     if "timer"             in t: return "timer"
-    # Regulators split into 3 sub-groups so positive/negative never cross-match
     if "negative"          in t and "regulator" in t: return "regulator_negative"
     if "adjustable"        in t and "regulator" in t: return "regulator_adjustable"
     if "regulator"         in t: return "regulator_positive"
+    if "wifi"              in t and "microcontroller" in t: return "mcu_wifi"
+    if "bluetooth"         in t and "microcontroller" in t: return "mcu_wifi"
+    if "32-bit"            in t and "microcontroller" in t: return "mcu_32bit"
+    if "microcontroller"   in t: return "mcu_8bit"
+    if "motor driver"      in t: return "motor_driver"
+    if "audio"             in t and "amplifier" in t: return "audio_amp"
+    if "adc"               in t: return "adc"
+    if "dac"               in t: return "dac"
     return t.strip()
 
 
