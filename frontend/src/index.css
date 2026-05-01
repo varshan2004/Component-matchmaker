@@ -1,29 +1,50 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-  --accent:     #185FA5;
-  --accent-dk:  #0C447C;
-  --accent-lt:  #E6F1FB;
-  --surface:    #F5F7FA;
-  --border:     #E5E7EB;
-  --text-main:  #111827;
-  --text-muted: #6B7280;
-  --radius:     12px;
-  --font-sans:  'IBM Plex Sans', system-ui, sans-serif;
-  --font-mono:  'IBM Plex Mono', monospace;
+  --bg:        #0D1117;
+  --bg2:       #161B22;
+  --bg3:       #1C2333;
+  --border:    #30363D;
+  --border2:   #484F58;
+  --amber:     #F0A500;
+  --amber-dim: rgba(240,165,0,0.12);
+  --amber-glow:rgba(240,165,0,0.25);
+  --emerald:   #3FB950;
+  --em-dim:    rgba(63,185,80,0.12);
+  --rose:      #F85149;
+  --blue:      #58A6FF;
+  --blue-dim:  rgba(88,166,255,0.12);
+  --purple:    #BC8CFF;
+  --text:      #E6EDF3;
+  --text2:     #8B949E;
+  --text3:     #484F58;
+  --mono:      'JetBrains Mono', monospace;
+  --sans:      'DM Sans', system-ui, sans-serif;
+  --radius:    10px;
 }
 
 body {
-  font-family: var(--font-sans);
-  background: var(--surface);
-  color: var(--text-main);
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
+  /* subtle circuit-board grid */
+  background-image:
+    linear-gradient(rgba(240,165,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,165,0,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+@keyframes fadeUp  { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pulse   { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+.fade-up { animation: fadeUp 0.25s ease forwards; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
