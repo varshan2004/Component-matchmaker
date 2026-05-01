@@ -1,16 +1,20 @@
 """
-Smart Component Information System — Phase 3.3
+Smart Component Information System — Phase 4
+Multi-distributor API integration.
+
 Resolution flow for /component:
-  1. SQLite cache        → return immediately (AI description already stored)
-  2. Local dataset       → exact specs + real datasheet PDF
-  3. Wikipedia API       → description text (context for AI)
-  4. Wikipedia scraper   → specs for unknown parts
-  5a. OpenRouter explain → if we have specs/description from above sources
-  5b. OpenRouter generate→ if EVERYTHING failed — AI generates specs from knowledge
-  6. Save to cache → return
+  1. SQLite cache          → instant return
+  2. Local dataset         → curated specs + datasheet PDF
+  3. Distributor APIs      → Mouser → Nexar → DigiKey (concurrent where possible)
+  4. Wikipedia API         → description text
+  5. Wikipedia scraper     → fallback specs if APIs returned nothing
+  6. OpenRouter AI explain → plain-English description
+  7. OpenRouter AI generate→ last resort if everything else failed
+  8. Cache + return
 """
 
 import json
+import asyncio
 import httpx
 from pathlib import Path
 from fastapi import FastAPI, Query, HTTPException
@@ -20,8 +24,11 @@ import database
 import alternatives as alt_engine
 from scrapers.orchestrator import scrape_component
 from openrouter_api import explain_component, generate_component, generate_alternatives
+from mouser_api import search_mouser
+from nexar_api  import search_nexar
+from digikey_api import search_digikey
 
-app = FastAPI(title="Smart Component Information System", version="3.3.0")
+app = FastAPI(title="Smart Component Information System", version="4.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,7 +48,7 @@ with open(_DATASET_PATH) as f:
 @app.on_event("startup")
 def on_startup():
     database.init_db()
-    print(f"[startup] DB ready | dataset={len(COMPONENT_DATASET)} | openrouter=enabled")
+    print(f"[startup] DB ready | dataset={len(COMPONENT_DATASET)} | APIs: Mouser+Nexar+DigiKey+OpenRouter")
 
 
 # ── /component ────────────────────────────────────────────────────────────────
@@ -49,7 +56,7 @@ def on_startup():
 @app.get("/component")
 async def get_component(name: str = Query(..., min_length=1)):
 
-    # 1. Cache — AI description already stored, return immediately
+    # 1. Cache
     cached = database.get_cached(name)
     if cached:
         print(f"[component] cache hit: '{name}'")
@@ -60,6 +67,7 @@ async def get_component(name: str = Query(..., min_length=1)):
     specs         = {}
     datasheet_url = ""
     description   = ""
+    api_source    = None
 
     if dataset_entry:
         print(f"[component] dataset hit: '{name}'")
@@ -70,23 +78,53 @@ async def get_component(name: str = Query(..., min_length=1)):
         }
         datasheet_url = dataset_entry.get("datasheet_url", "")
         canonical     = dataset_entry["name"]
+
     else:
         canonical = name
 
-    # 3. Wikipedia description — best effort, never fatal
+        # 3. Distributor APIs — run Mouser + Nexar concurrently, DigiKey as fallback
+        print(f"[component] querying distributor APIs for '{name}'")
+        mouser_result, nexar_result = await asyncio.gather(
+            _safe_api(search_mouser, name),
+            _safe_api(search_nexar,  name),
+        )
+
+        # Pick best result: prefer Mouser (more detailed specs), then Nexar
+        api_data = _pick_best([mouser_result, nexar_result])
+
+        # If neither had specs, try DigiKey
+        if not api_data or not any(api_data.get("specs", {}).values()):
+            print(f"[component] Mouser+Nexar empty, trying DigiKey for '{name}'")
+            api_data = await _safe_api(search_digikey, name) or api_data
+
+        if api_data:
+            api_source    = api_data.get("source", "api")
+            api_specs     = api_data.get("specs", {})
+            specs = {
+                "type":    api_specs.get("type", ""),
+                "voltage": api_specs.get("voltage", ""),
+                "current": api_specs.get("current", ""),
+            }
+            if not description:
+                description = api_data.get("description", "")
+            if not datasheet_url:
+                datasheet_url = api_data.get("datasheet_url", "")
+            canonical = api_data.get("name", name)
+
+    # 4. Wikipedia description — best effort
+    wiki_title = canonical
     try:
         wiki_name             = _simplify_name(canonical)
         wiki_desc, wiki_title = await _fetch_wikipedia_description(wiki_name)
-        description           = wiki_desc
-        # Only update canonical for unknown components — prevents BC547→BC548 rename
+        description           = wiki_desc   # Wikipedia preferred (richer)
         if not dataset_entry:
             canonical = wiki_title
         print(f"[component] Wikipedia hit for '{name}'")
     except HTTPException:
-        print(f"[component] no Wikipedia page for '{name}', continuing to scraper")
+        print(f"[component] no Wikipedia page for '{name}'")
 
-    # 4. Scrape specs only for unknown components
-    if not dataset_entry:
+    # 5. Scrape specs if still empty (not in dataset, APIs returned nothing)
+    if not dataset_entry and not any(specs.values()):
         print(f"[component] scraping specs for '{canonical}'")
         scraped       = await scrape_component(canonical)
         scraped_specs = scraped.get("specs", {})
@@ -98,28 +136,22 @@ async def get_component(name: str = Query(..., min_length=1)):
         if not datasheet_url:
             datasheet_url = scraped.get("datasheet_url", "")
 
-    # 5. OpenRouter — two modes depending on what we found
-    ai_generated = False
-
+    # 6+7. OpenRouter AI
     if description or any(specs.values()):
-        # 5a. We have some data — AI explains it in plain English
+        # Have some data — AI explains it
         print(f"[component] generating AI explanation for '{canonical}'")
-        ai_explanation = await explain_component(canonical, specs, description)
-        final_description = ai_explanation if ai_explanation else description
-
+        ai_text = await explain_component(canonical, specs, description)
+        final_description = ai_text if ai_text else description
+        ai_generated = False
     else:
-        # 5b. Everything failed — AI generates specs from its own knowledge
-        print(f"[component] no data found, asking AI to generate for '{canonical}'")
+        # Nothing found anywhere — AI generates from knowledge
+        print(f"[component] asking AI to generate data for '{canonical}'")
         ai_data = await generate_component(canonical)
-
         if not ai_data:
-            # AI also doesn't know it — genuine 404
             raise HTTPException(
                 status_code=404,
                 detail=f"'{name}' not found. Try a more specific component name."
             )
-
-        # Use AI-generated data
         ai_generated      = True
         final_description = ai_data.get("description", "")
         ai_specs          = ai_data.get("specs", {})
@@ -137,8 +169,17 @@ async def get_component(name: str = Query(..., min_length=1)):
             f"https://www.alldatasheet.com/search/?q={canonical.replace(' ', '+')}"
         )
 
-    # 6. Build + cache
-    source = "dataset" if dataset_entry else ("ai" if ai_generated else "live")
+    # Determine source label
+    if dataset_entry:
+        source = "dataset"
+    elif ai_generated:
+        source = "ai"
+    elif api_source:
+        source = api_source
+    else:
+        source = "live"
+
+    # 8. Build + cache
     result = {
         "name":          canonical,
         "description":   final_description,
@@ -148,8 +189,6 @@ async def get_component(name: str = Query(..., min_length=1)):
     }
 
     database.save_component(result)
-
-    # Cache under original search term too
     if name.upper() != canonical.upper():
         database.save_component({**result, "name": name})
 
@@ -181,7 +220,6 @@ async def get_alternatives(name: str = Query(..., min_length=1)):
 
     found = alt_engine.find_alternatives(canonical, specs, top_n=4)
 
-    # Dataset returned nothing → ask AI for alternatives
     if not found:
         print(f"[alternatives] no dataset matches for '{canonical}', asking AI")
         found = await generate_alternatives(canonical, specs)
@@ -191,10 +229,16 @@ async def get_alternatives(name: str = Query(..., min_length=1)):
 
 @app.get("/health")
 async def health():
+    from digikey_api import CLIENT_ID as dk_id
     return {
         "status":       "ok",
-        "phase":        "3.3",
-        "openrouter":   "enabled",
+        "phase":        "4.0",
+        "apis":         {
+            "mouser":   "enabled",
+            "nexar":    "enabled",
+            "digikey":  "configured" if dk_id else "needs_setup",
+            "openrouter": "enabled",
+        },
         "dataset_size": len(COMPONENT_DATASET),
     }
 
@@ -210,11 +254,33 @@ def _dataset_lookup(name: str) -> dict | None:
 
 
 def _simplify_name(name: str) -> str:
-    """Strip package suffixes for better Wikipedia matches."""
     import re
     simplified = re.sub(r'[-/][A-Z]{1,4}$', '', name.strip())
     simplified = re.sub(r'[A-Z]\d[A-Z]\d?$', '', simplified)
     return simplified.strip('-') or name
+
+
+async def _safe_api(fn, name: str) -> dict:
+    """Call any async API function safely — never raises."""
+    try:
+        return await fn(name) or {}
+    except Exception as e:
+        print(f"[component] API error ({fn.__name__}): {e}")
+        return {}
+
+
+def _pick_best(results: list[dict]) -> dict:
+    """Return the result with the most spec fields filled."""
+    best = {}
+    best_score = -1
+    for r in results:
+        if not r:
+            continue
+        score = sum(1 for v in r.get("specs", {}).values() if v)
+        if score > best_score:
+            best_score = score
+            best = r
+    return best
 
 
 async def _fetch_wikipedia_description(name: str) -> tuple[str, str]:
@@ -227,12 +293,12 @@ async def _fetch_wikipedia_description(name: str) -> tuple[str, str]:
         async with httpx.AsyncClient(timeout=15.0) as client:
             r = await client.get(WIKIPEDIA_API, params=params, headers=HEADERS)
     except httpx.TimeoutException:
-        raise HTTPException(status_code=504, detail="Wikipedia request timed out.")
+        raise HTTPException(status_code=504, detail="Wikipedia timed out.")
     except httpx.RequestError as e:
         raise HTTPException(status_code=502, detail=f"Network error: {e}")
 
     if r.status_code != 200:
-        raise HTTPException(status_code=502, detail=f"Wikipedia returned {r.status_code}.")
+        raise HTTPException(status_code=502, detail=f"Wikipedia {r.status_code}.")
 
     pages = r.json().get("query", {}).get("pages", {})
     if "-1" in pages:

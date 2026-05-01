@@ -10,7 +10,7 @@ import httpx
 import json
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
-API_KEY = "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"
+API_KEY = "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"
 MODEL   = "openai/gpt-4o-mini"
 
 HEADERS = {
@@ -153,40 +153,43 @@ async def generate_alternatives(name: str, specs: dict) -> list:
     """
     spec_text = ", ".join(f"{k}: {v}" for k, v in specs.items() if v)
 
-    prompt = f"""You are an electronics component database.
-Suggest 3-4 alternative components for: "{name}"
-Specs: {spec_text if spec_text else "unknown"}
+    prompt = f"""List 3 alternative electronic components for "{name}".
+Known specs: {spec_text if spec_text else "not available"}
 
-Respond ONLY with a valid JSON array, no explanation, no markdown:
-[
-  {{
-    "name": "part number",
-    "type": "component type",
-    "voltage": "voltage rating",
-    "current": "current rating",
-    "reason": "one sentence why this is a good alternative"
-  }}
-]
+Rules:
+- Only real, purchasable components
+- Same function/type as the original
+- Return ONLY a JSON array, nothing else
 
-Only suggest real, commonly available components. If you don't know any alternatives, return []."""
+Required format:
+[{{"name":"PART123","type":"Component Type","voltage":"XV","current":"XmA","reason":"Brief reason"}}]"""
 
     raw = await _call_openrouter(prompt, name, mode="alternatives")
     if not raw:
         return []
 
+    # Strip markdown fences
     raw = raw.strip()
-    if raw.startswith("```"):
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
+    for fence in ["```json", "```"]:
+        if raw.startswith(fence):
+            raw = raw[len(fence):]
+    if raw.endswith("```"):
+        raw = raw[:-3]
     raw = raw.strip()
+
+    # Find JSON array in response even if there's surrounding text
+    import re
+    match = re.search(r'\[.*\]', raw, re.DOTALL)
+    if match:
+        raw = match.group(0)
 
     try:
         data = json.loads(raw)
-        if isinstance(data, list):
+        if isinstance(data, list) and len(data) > 0:
             print(f"[openrouter] {len(data)} AI alternatives for '{name}'")
             return data
-    except json.JSONDecodeError:
-        print(f"[openrouter] failed to parse alternatives JSON for '{name}'")
+        print(f"[openrouter] empty alternatives list for '{name}'")
+    except json.JSONDecodeError as e:
+        print(f"[openrouter] JSON parse error for '{name}': {e} | raw={raw[:100]}")
 
     return []
