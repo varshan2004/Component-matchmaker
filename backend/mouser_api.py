@@ -154,6 +154,29 @@ async def search_mouser(part_name: str) -> dict:
     }
 
 
+async def _fetch_by_part_number(client_ref, part_name: str) -> list:
+    """Try Mouser's exact part number search for richer attribute data."""
+    payload = {
+        "SearchByPartNumberRequest": {
+            "mouserPartNumber": part_name,
+        }
+    }
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            r = await client.post(
+                f"{BASE_URL}/search/partnumber?apiKey={API_KEY}",
+                json=payload, headers=HEADERS
+            )
+            r.raise_for_status()
+            data = r.json()
+        parts = data.get("SearchResults", {}).get("Parts", [])
+        if parts:
+            return parts[0].get("ProductAttributes", [])
+    except Exception as e:
+        print(f"[mouser] exact search failed: {e}")
+    return []
+
+
 def _extract_all_specs(attributes: list) -> dict:
     """Extract all meaningful specs from Mouser ProductAttributes."""
     result = {k: "" for k in SPEC_MAP}

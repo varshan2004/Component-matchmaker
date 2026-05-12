@@ -23,6 +23,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import database
 import alternatives as alt_engine
 from scrapers.orchestrator import scrape_component
+from scrapers.retry import with_retry
 from openrouter_api import explain_component, generate_component, generate_alternatives
 from mouser_api import search_mouser
 from nexar_api  import search_nexar
@@ -83,35 +84,40 @@ async def get_component(name: str = Query(..., min_length=1)):
         datasheet_url = dataset_entry.get("datasheet_url", "")
         canonical     = dataset_entry["name"]
 
-        # Fetch pricing from distributors even for dataset parts
+        # Fetch pricing — DigiKey first (most reliable), then Mouser + Nexar
         print(f"[component] fetching pricing for dataset part '{name}'")
-        m_res, n_res = await asyncio.gather(
-            _safe_api(search_mouser, name),
-            _safe_api(search_nexar,  name),
-        )
-        for api_res in [m_res, n_res]:
-            if api_res and api_res.get("pricing", {}).get("qty1"):
-                pricing = api_res["pricing"]
-                print(f"[component] pricing from {api_res.get('source')}: {pricing.get('qty1')}")
-                break
+        dk_res = await _safe_api(search_digikey, name)
+        if dk_res and dk_res.get("pricing", {}).get("qty1"):
+            pricing = dk_res["pricing"]
+            print(f"[component] pricing from digikey: {pricing.get('qty1')}")
+        else:
+            m_res, n_res = await asyncio.gather(
+                _safe_api(search_mouser, name),
+                _safe_api(search_nexar,  name),
+            )
+            for api_res in [m_res, n_res]:
+                if api_res and api_res.get("pricing", {}).get("qty1"):
+                    pricing = api_res["pricing"]
+                    print(f"[component] pricing from {api_res.get('source')}: {pricing.get('qty1')}")
+                    break
 
     else:
         canonical = name
 
-        # 3. Distributor APIs — run Mouser + Nexar concurrently, DigiKey as fallback
-        print(f"[component] querying distributor APIs for '{name}'")
-        mouser_result, nexar_result = await asyncio.gather(
-            _safe_api(search_mouser, name),
-            _safe_api(search_nexar,  name),
-        )
+        # 3. Distributor APIs — DigiKey first (authoritative), then Mouser + Nexar
+        print(f"[component] querying DigiKey first for '{name}'")
+        api_data = await _safe_api(search_digikey, name)
 
-        # Pick best result: prefer Mouser (more detailed specs), then Nexar
-        api_data = _pick_best([mouser_result, nexar_result])
-
-        # If neither had specs, try DigiKey
         if not api_data or not any(api_data.get("specs", {}).values()):
-            print(f"[component] Mouser+Nexar empty, trying DigiKey for '{name}'")
-            api_data = await _safe_api(search_digikey, name) or api_data
+            print(f"[component] DigiKey miss, trying Mouser + Nexar for '{name}'")
+            mouser_result, nexar_result = await asyncio.gather(
+                _safe_api(search_mouser, name),
+                _safe_api(search_nexar,  name),
+            )
+            fallback = _pick_best([mouser_result, nexar_result])
+            # Merge: use DigiKey data where available, fill gaps from Mouser/Nexar
+            if fallback:
+                api_data = fallback if not api_data else _merge_api(api_data, fallback)
 
         if api_data:
             api_source    = api_data.get("source", "api")
@@ -280,6 +286,13 @@ async def get_pricing(name: str = Query(..., min_length=1)):
     dataset_entry = _dataset_lookup(name)
     lookup_name   = dataset_entry["name"] if dataset_entry else name
 
+    # DigiKey first — most reliable pricing
+    dk_res = await _safe_api(search_digikey, lookup_name)
+    if dk_res and dk_res.get("pricing", {}).get("qty1"):
+        print(f"[pricing] '{name}' → {dk_res['pricing'].get('qty1')} from digikey")
+        return {"name": name, "pricing": dk_res["pricing"], "source": "digikey"}
+
+    # Fallback: Mouser + Nexar concurrently
     mouser_res, nexar_res = await asyncio.gather(
         _safe_api(search_mouser, lookup_name),
         _safe_api(search_nexar,  lookup_name),
@@ -325,12 +338,11 @@ def _simplify_name(name: str) -> str:
 
 
 async def _safe_api(fn, name: str) -> dict:
-    """Call any async API function safely — never raises."""
-    try:
-        return await fn(name) or {}
-    except Exception as e:
-        print(f"[component] API error ({fn.__name__}): {e}")
-        return {}
+    """
+    Call any async API function with one retry on network/timeout errors.
+    Never raises — returns {} on final failure.
+    """
+    return await with_retry(fn, name, retries=1, delay=1.0) or {}
 
 
 def _pick_best(results: list[dict]) -> dict:

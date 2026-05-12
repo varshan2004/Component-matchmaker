@@ -10,7 +10,7 @@ import httpx
 import json
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
-API_KEY = "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"
+API_KEY = "Api-key"
 MODEL   = "openai/gpt-4o-mini"
 
 HEADERS = {
@@ -47,15 +47,16 @@ async def explain_component(name: str, specs: dict, raw_description: str = "") -
     context   = raw_description.strip() if raw_description else "No additional data"
 
     prompt = (
-        f'Explain the electronic component "{name}" in simple terms for an engineer.\n'
-        f"Include:\n"
-        f"- What it is and what it does\n"
-        f"- Its key specs and what they mean practically\n"
-        f"- Typical use cases\n"
-        f"- Where to buy it (mention Digi-Key or Mouser)\n\n"
-        f"Available data:\n{spec_text}\n\n"
-        f"Additional context:\n{context}\n\n"
-        f"Keep the response under 120 words. Be direct and practical."
+        f'You are a senior electronics engineer writing a datasheet summary.\n'
+        f'Write a concise technical description of "{name}" for an engineer selecting components.\n\n'
+        f"Known specs:\n{spec_text}\n\n"
+        f"Context:\n{context}\n\n"
+        f"Write 3-4 sentences covering:\n"
+        f"1. Exact function (e.g. 'fixed 5V/1A linear regulator' not 'voltage regulator')\n"
+        f"2. Key electrical characteristics and practical implications (dropout, frequency, gain etc.)\n"
+        f"3. Typical circuit applications and important limitations\n"
+        f"4. One-line sourcing note mentioning Digi-Key or Mouser\n\n"
+        f"Be specific and engineering-focused. Avoid generic phrases."
     )
 
     return await _call_openrouter(prompt, name, mode="explain")

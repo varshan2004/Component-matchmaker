@@ -19,8 +19,12 @@ CLIENT_ID     = "IWGrhpWqRGFzBrGPx8CzSOW6UWo3areAoanNl13I15FPcU50"   # paste you
 CLIENT_SECRET = "KAyXIWyLHHg28OpVHvGiBCS6LxGGvDM3Suhxezu3uPDAur1JjAM9igdETEbEFtaG"   # paste your DigiKey client secret here
 # ─────────────────────────────────────────────────────────────────────────────
 
-TOKEN_URL  = "https://api.digikey.com/v1/oauth2/token"
-SEARCH_URL = "https://api.digikey.com/products/v4/search/keyword"
+# DigiKey URLs — try sandbox if production returns 401
+TOKEN_URL      = "https://api.digikey.com/v1/oauth2/token"
+TOKEN_URL_SB   = "https://sandbox-api.digikey.com/v1/oauth2/token"
+SEARCH_URL     = "https://api.digikey.com/products/v4/search/keyword"
+SEARCH_URL_SB  = "https://sandbox-api.digikey.com/products/v4/search/keyword"
+USE_SANDBOX    = False   # set True if credentials are sandbox credentials
 
 _token_cache: dict = {"token": None, "expires_at": 0}
 
@@ -44,12 +48,20 @@ async def _get_token() -> str:
     if not CLIENT_ID or not CLIENT_SECRET:
         raise ValueError("DigiKey CLIENT_ID and CLIENT_SECRET not configured.")
 
+    url = TOKEN_URL_SB if USE_SANDBOX else TOKEN_URL
     async with httpx.AsyncClient(timeout=10.0) as client:
-        r = await client.post(TOKEN_URL, data={
+        r = await client.post(url, data={
             "grant_type":    "client_credentials",
             "client_id":     CLIENT_ID,
             "client_secret": CLIENT_SECRET,
         })
+        if r.status_code == 401 and not USE_SANDBOX:
+            print("[digikey] production auth failed, trying sandbox…")
+            r = await client.post(TOKEN_URL_SB, data={
+                "grant_type":    "client_credentials",
+                "client_id":     CLIENT_ID,
+                "client_secret": CLIENT_SECRET,
+            })
         r.raise_for_status()
         data = r.json()
 
@@ -60,14 +72,21 @@ async def _get_token() -> str:
     return token
 
 
+# Circuit breaker — if DigiKey keeps failing, stop trying for 10 minutes
+_dk_fail_count   = 0
+_dk_disabled_until = 0.0
+
 async def search_digikey(part_name: str) -> dict:
     """
     Search DigiKey for a component by part number.
     Returns normalized dict or {} on failure.
-    Never raises.
+    Skips silently if credentials not configured or circuit breaker is open.
     """
+    global _dk_fail_count, _dk_disabled_until
     if not CLIENT_ID or not CLIENT_SECRET:
-        print("[digikey] not configured — skipping")
+        return {}
+    # Circuit breaker: if 3+ failures, pause for 10 minutes
+    if _dk_disabled_until and time.time() < _dk_disabled_until:
         return {}
 
     try:
@@ -91,7 +110,8 @@ async def search_digikey(part_name: str) -> dict:
 
     try:
         async with httpx.AsyncClient(timeout=15.0) as client:
-            r = await client.post(SEARCH_URL, json=payload, headers=headers)
+            url = SEARCH_URL_SB if USE_SANDBOX else SEARCH_URL
+            r = await client.post(url, json=payload, headers=headers)
             r.raise_for_status()
             data = r.json()
     except Exception as e:

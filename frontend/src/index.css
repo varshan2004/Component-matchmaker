@@ -1,50 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-
 :root {
-  --bg:        #0D1117;
-  --bg2:       #161B22;
-  --bg3:       #1C2333;
-  --border:    #30363D;
-  --border2:   #484F58;
-  --amber:     #F0A500;
-  --amber-dim: rgba(240,165,0,0.12);
-  --amber-glow:rgba(240,165,0,0.25);
-  --emerald:   #3FB950;
-  --em-dim:    rgba(63,185,80,0.12);
-  --rose:      #F85149;
-  --blue:      #58A6FF;
-  --blue-dim:  rgba(88,166,255,0.12);
-  --purple:    #BC8CFF;
-  --text:      #E6EDF3;
-  --text2:     #8B949E;
-  --text3:     #484F58;
-  --mono:      'JetBrains Mono', monospace;
-  --sans:      'DM Sans', system-ui, sans-serif;
-  --radius:    10px;
+  --primary-navy:       #183B63;
+  --primary-navy-dark:  #102945;
+  --bg-main:            #F5F3EF;
+  --bg-card:            #FAF8F4;
+  --bg-secondary-card:  #F8F5EF;
+  --border-main:        #DDD6CC;
+  --border-soft:        #E7DFD4;
+  --border-divider:     #D9D1C5;
+  --text-primary:       #1D2B3F;
+  --text-secondary:     #6B7280;
+  --text-muted:         #7B7B7B;
+  --accent-gold:        #B58B44;
+  --success-green:      #22C55E;
+  --success-bg:         #DCFCE7;
+  --success-text:       #15803D;
+
+  /* Aliases used by components */
+  --bg:         var(--bg-main);
+  --bg2:        var(--bg-card);
+  --bg3:        var(--bg-secondary-card);
+  --border:     var(--border-main);
+  --border2:    var(--border-divider);
+  --amber:      var(--accent-gold);
+  --amber2:     #C9A35C;
+  --amber-dim:  rgba(181,139,68,0.10);
+  --amber-glow: rgba(181,139,68,0.20);
+  --teal:       #1A7A6E;
+  --teal-dim:   rgba(26,122,110,0.08);
+  --blue:       var(--primary-navy);
+  --blue-dim:   rgba(24,59,99,0.08);
+  --purple:     #5B4A8A;
+  --purple-dim: rgba(91,74,138,0.08);
+  --rose:       #C0392B;
+  --rose-dim:   rgba(192,57,43,0.08);
+  --green:      var(--success-text);
+  --green-dim:  var(--success-bg);
+  --text:       var(--text-primary);
+  --text2:      var(--text-secondary);
+  --text3:      var(--text-muted);
+  --mono:       'JetBrains Mono', monospace;
+  --sans:       'Outfit', system-ui, sans-serif;
 }
 
 body {
   font-family: var(--sans);
-  background: var(--bg);
-  color: var(--text);
+  background: var(--bg-main);
+  color: var(--text-primary);
   min-height: 100vh;
-  /* subtle circuit-board grid */
-  background-image:
-    linear-gradient(rgba(240,165,0,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240,165,0,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
 }
 
 @keyframes spin    { to { transform: rotate(360deg); } }
 @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 @keyframes fadeUp  { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-@keyframes pulse   { 0%,100%{opacity:1} 50%{opacity:0.5} }
 
 .fade-up { animation: fadeUp 0.25s ease forwards; }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg2); }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary-card); }
+::-webkit-scrollbar-thumb { background: var(--border-divider); border-radius: 3px; }

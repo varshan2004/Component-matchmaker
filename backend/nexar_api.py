@@ -2,7 +2,9 @@
 nexar_api.py — Nexar GraphQL API. Full spec extraction.
 """
 
-import httpx, time
+import httpx, time, asyncio
+
+_token_lock = asyncio.Lock()
 
 TOKEN_URL   = "https://identity.nexar.com/connect/token"
 GRAPHQL_URL = "https://api.nexar.com/graphql"
@@ -49,18 +51,24 @@ DISPLAY_ORDER = [
 
 async def _get_token() -> str:
     now = time.time()
+    # Fast path — no lock needed if token is valid
     if _token_cache["token"] and now < _token_cache["expires_at"]:
         return _token_cache["token"]
-    async with httpx.AsyncClient(timeout=10.0) as client:
-        r = await client.post(TOKEN_URL, data={
-            "grant_type":"client_credentials",
-            "client_id":CLIENT_ID,"client_secret":CLIENT_SECRET
-        })
-        r.raise_for_status()
-        d = r.json()
-    _token_cache["token"]      = d.get("access_token","")
-    _token_cache["expires_at"] = now + d.get("expires_in",86400) - 60
-    return _token_cache["token"]
+    # Lock prevents concurrent token fetches that cause 429
+    async with _token_lock:
+        # Re-check inside lock in case another coroutine already refreshed
+        if _token_cache["token"] and time.time() < _token_cache["expires_at"]:
+            return _token_cache["token"]
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            r = await client.post(TOKEN_URL, data={
+                "grant_type":"client_credentials",
+                "client_id":CLIENT_ID,"client_secret":CLIENT_SECRET
+            })
+            r.raise_for_status()
+            d = r.json()
+        _token_cache["token"]      = d.get("access_token","")
+        _token_cache["expires_at"] = time.time() + min(d.get("expires_in",86400), 21600) - 300
+        return _token_cache["token"]
 
 
 async def search_nexar(part_name: str) -> dict:
