@@ -1,290 +1,2353 @@
 {
   "LM7805": {
-    "name": "LM7805", "type": "Positive Voltage Regulator",
-    "voltage": "5V", "current": "1A",
+    "name": "LM7805",
+    "type": "Positive Voltage Regulator",
+    "voltage": "5V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7805.pdf",
-    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "fixed",
+      "78xx"
+    ],
+    "power": "15W",
+    "package": "TO-220",
+    "dropout": "2V",
+    "accuracy": "\u00b14%",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "LM7806": {
-    "name": "LM7806", "type": "Positive Voltage Regulator",
-    "voltage": "6V", "current": "1A",
+    "name": "LM7806",
+    "type": "Positive Voltage Regulator",
+    "voltage": "6V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7806.pdf",
-    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "fixed",
+      "78xx"
+    ]
   },
   "LM7808": {
-    "name": "LM7808", "type": "Positive Voltage Regulator",
-    "voltage": "8V", "current": "1A",
+    "name": "LM7808",
+    "type": "Positive Voltage Regulator",
+    "voltage": "8V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7808.pdf",
-    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "fixed",
+      "78xx"
+    ]
   },
   "LM7809": {
-    "name": "LM7809", "type": "Positive Voltage Regulator",
-    "voltage": "9V", "current": "1A",
+    "name": "LM7809",
+    "type": "Positive Voltage Regulator",
+    "voltage": "9V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7809.pdf",
-    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "fixed",
+      "78xx"
+    ]
   },
   "LM7812": {
-    "name": "LM7812", "type": "Positive Voltage Regulator",
-    "voltage": "12V", "current": "1A",
+    "name": "LM7812",
+    "type": "Positive Voltage Regulator",
+    "voltage": "12V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7812.pdf",
-    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "fixed",
+      "78xx"
+    ],
+    "power": "15W",
+    "package": "TO-220",
+    "dropout": "2V",
+    "accuracy": "\u00b14%",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "LM7815": {
-    "name": "LM7815", "type": "Positive Voltage Regulator",
-    "voltage": "15V", "current": "1A",
+    "name": "LM7815",
+    "type": "Positive Voltage Regulator",
+    "voltage": "15V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7815.pdf",
-    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "fixed",
+      "78xx"
+    ],
+    "power": "15W",
+    "package": "TO-220",
+    "dropout": "2V",
+    "accuracy": "\u00b14%",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "LM7824": {
-    "name": "LM7824", "type": "Positive Voltage Regulator",
-    "voltage": "24V", "current": "1A",
+    "name": "LM7824",
+    "type": "Positive Voltage Regulator",
+    "voltage": "24V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm7824.pdf",
-    "tags": ["regulator", "linear", "positive", "fixed", "78xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "fixed",
+      "78xx"
+    ]
   },
   "L7805CV": {
-    "name": "L7805CV", "type": "Positive Voltage Regulator",
-    "voltage": "5V", "current": "1.5A",
+    "name": "L7805CV",
+    "type": "Positive Voltage Regulator",
+    "voltage": "5V",
+    "current": "1.5A",
     "datasheet_url": "https://www.st.com/resource/en/datasheet/l78.pdf",
-    "tags": ["regulator", "linear", "positive", "fixed", "78xx", "st"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "fixed",
+      "78xx",
+      "st"
+    ],
+    "power": "15W",
+    "package": "TO-220",
+    "dropout": "2V",
+    "accuracy": "\u00b12%",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "L7812CV": {
-    "name": "L7812CV", "type": "Positive Voltage Regulator",
-    "voltage": "12V", "current": "1.5A",
+    "name": "L7812CV",
+    "type": "Positive Voltage Regulator",
+    "voltage": "12V",
+    "current": "1.5A",
     "datasheet_url": "https://www.st.com/resource/en/datasheet/l78.pdf",
-    "tags": ["regulator", "linear", "positive", "fixed", "78xx", "st"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "fixed",
+      "78xx",
+      "st"
+    ]
   },
   "LM317": {
-    "name": "LM317", "type": "Adjustable Voltage Regulator",
-    "voltage": "1.25-37V", "current": "1.5A",
+    "name": "LM317",
+    "type": "Adjustable Voltage Regulator",
+    "voltage": "1.25-37V",
+    "current": "1.5A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm317.pdf",
-    "tags": ["regulator", "linear", "positive", "adjustable"]
+    "tags": [
+      "regulator",
+      "linear",
+      "positive",
+      "adjustable"
+    ],
+    "power": "20W",
+    "package": "TO-220",
+    "dropout": "1.25V",
+    "accuracy": "\u00b11.5%",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "LM337": {
-    "name": "LM337", "type": "Adjustable Voltage Regulator",
-    "voltage": "-1.25 to -37V", "current": "1.5A",
+    "name": "LM337",
+    "type": "Adjustable Voltage Regulator",
+    "voltage": "-1.25 to -37V",
+    "current": "1.5A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm337.pdf",
-    "tags": ["regulator", "linear", "negative", "adjustable"]
+    "tags": [
+      "regulator",
+      "linear",
+      "negative",
+      "adjustable"
+    ]
   },
   "LM7905": {
-    "name": "LM7905", "type": "Negative Voltage Regulator",
-    "voltage": "-5V", "current": "1A",
+    "name": "LM7905",
+    "type": "Negative Voltage Regulator",
+    "voltage": "-5V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm79.pdf",
-    "tags": ["regulator", "linear", "negative", "fixed", "79xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "negative",
+      "fixed",
+      "79xx"
+    ]
   },
   "LM7912": {
-    "name": "LM7912", "type": "Negative Voltage Regulator",
-    "voltage": "-12V", "current": "1A",
+    "name": "LM7912",
+    "type": "Negative Voltage Regulator",
+    "voltage": "-12V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm79.pdf",
-    "tags": ["regulator", "linear", "negative", "fixed", "79xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "negative",
+      "fixed",
+      "79xx"
+    ]
   },
   "LM7915": {
-    "name": "LM7915", "type": "Negative Voltage Regulator",
-    "voltage": "-15V", "current": "1A",
+    "name": "LM7915",
+    "type": "Negative Voltage Regulator",
+    "voltage": "-15V",
+    "current": "1A",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm79.pdf",
-    "tags": ["regulator", "linear", "negative", "fixed", "79xx"]
+    "tags": [
+      "regulator",
+      "linear",
+      "negative",
+      "fixed",
+      "79xx"
+    ]
   },
   "LM741": {
-    "name": "LM741", "type": "Op-Amp",
-    "voltage": "±18V", "current": "25mA",
+    "name": "LM741",
+    "type": "Op-Amp",
+    "voltage": "\u00b118V",
+    "current": "25mA",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm741.pdf",
-    "tags": ["opamp", "amplifier", "single"]
+    "tags": [
+      "opamp",
+      "amplifier",
+      "single"
+    ],
+    "power": "500mW",
+    "package": "DIP-8",
+    "frequency": "1MHz",
+    "gain": "200,000",
+    "temp_range": "-55\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "LM358": {
-    "name": "LM358", "type": "Op-Amp",
-    "voltage": "3-32V", "current": "20mA",
+    "name": "LM358",
+    "type": "Op-Amp",
+    "voltage": "3-32V",
+    "current": "20mA",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm358.pdf",
-    "tags": ["opamp", "amplifier", "dual"]
+    "tags": [
+      "opamp",
+      "amplifier",
+      "dual"
+    ],
+    "power": "800mW",
+    "package": "DIP-8",
+    "frequency": "1.1MHz",
+    "gain": "100dB",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "TL071": {
-    "name": "TL071", "type": "Op-Amp",
-    "voltage": "±18V", "current": "17mA",
+    "name": "TL071",
+    "type": "Op-Amp",
+    "voltage": "\u00b118V",
+    "current": "17mA",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/tl071.pdf",
-    "tags": ["opamp", "amplifier", "jfet", "single"]
+    "tags": [
+      "opamp",
+      "amplifier",
+      "jfet",
+      "single"
+    ],
+    "power": "680mW",
+    "package": "DIP-8",
+    "frequency": "3MHz",
+    "gain": "106dB",
+    "temp_range": "-40\u00b0C to +105\u00b0C",
+    "mounting": "Through-Hole"
   },
   "TL081": {
-    "name": "TL081", "type": "Op-Amp",
-    "voltage": "±18V", "current": "17mA",
+    "name": "TL081",
+    "type": "Op-Amp",
+    "voltage": "\u00b118V",
+    "current": "17mA",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/tl081.pdf",
-    "tags": ["opamp", "amplifier", "jfet", "single"]
+    "tags": [
+      "opamp",
+      "amplifier",
+      "jfet",
+      "single"
+    ]
   },
   "LM324": {
-    "name": "LM324", "type": "Op-Amp",
-    "voltage": "3-32V", "current": "20mA",
+    "name": "LM324",
+    "type": "Op-Amp",
+    "voltage": "3-32V",
+    "current": "20mA",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm324.pdf",
-    "tags": ["opamp", "amplifier", "quad"]
+    "tags": [
+      "opamp",
+      "amplifier",
+      "quad"
+    ]
   },
   "NE5532": {
-    "name": "NE5532", "type": "Op-Amp",
-    "voltage": "±15V", "current": "16mA",
+    "name": "NE5532",
+    "type": "Op-Amp",
+    "voltage": "\u00b115V",
+    "current": "16mA",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/ne5532.pdf",
-    "tags": ["opamp", "amplifier", "dual", "audio"]
+    "tags": [
+      "opamp",
+      "amplifier",
+      "dual",
+      "audio"
+    ]
   },
   "NE555": {
-    "name": "NE555", "type": "Timer IC",
-    "voltage": "4.5-16V", "current": "200mA",
+    "name": "NE555",
+    "type": "Timer IC",
+    "voltage": "4.5-16V",
+    "current": "200mA",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/ne555.pdf",
-    "tags": ["timer", "oscillator", "pwm"]
+    "tags": [
+      "timer",
+      "oscillator",
+      "pwm"
+    ],
+    "power": "600mW",
+    "package": "DIP-8",
+    "frequency": "500kHz",
+    "temp_range": "-55\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "LM555": {
-    "name": "LM555", "type": "Timer IC",
-    "voltage": "4.5-16V", "current": "200mA",
+    "name": "LM555",
+    "type": "Timer IC",
+    "voltage": "4.5-16V",
+    "current": "200mA",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm555.pdf",
-    "tags": ["timer", "oscillator", "pwm"]
+    "tags": [
+      "timer",
+      "oscillator",
+      "pwm"
+    ],
+    "power": "600mW",
+    "package": "DIP-8",
+    "frequency": "500kHz",
+    "temp_range": "-55\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "NE556": {
-    "name": "NE556", "type": "Timer IC",
-    "voltage": "4.5-16V", "current": "200mA",
+    "name": "NE556",
+    "type": "Timer IC",
+    "voltage": "4.5-16V",
+    "current": "200mA",
     "datasheet_url": "https://www.ti.com/lit/ds/symlink/ne556.pdf",
-    "tags": ["timer", "oscillator", "dual"]
+    "tags": [
+      "timer",
+      "oscillator",
+      "dual"
+    ]
   },
   "BC547": {
-    "name": "BC547", "type": "NPN Transistor",
-    "voltage": "45V", "current": "100mA",
+    "name": "BC547",
+    "type": "NPN Transistor",
+    "voltage": "45V",
+    "current": "100mA",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC547-D.PDF",
-    "tags": ["transistor", "npn", "small-signal"]
+    "tags": [
+      "transistor",
+      "npn",
+      "small-signal"
+    ],
+    "power": "500mW",
+    "package": "TO-92",
+    "gain": "110-800",
+    "frequency": "150MHz",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "mounting": "Through-Hole"
   },
   "BC548": {
-    "name": "BC548", "type": "NPN Transistor",
-    "voltage": "30V", "current": "100mA",
+    "name": "BC548",
+    "type": "NPN Transistor",
+    "voltage": "30V",
+    "current": "100mA",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC548-D.PDF",
-    "tags": ["transistor", "npn", "small-signal"]
+    "tags": [
+      "transistor",
+      "npn",
+      "small-signal"
+    ],
+    "power": "500mW",
+    "package": "TO-92",
+    "gain": "110-800",
+    "frequency": "150MHz",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "mounting": "Through-Hole"
   },
   "2N2222": {
-    "name": "2N2222", "type": "NPN Transistor",
-    "voltage": "40V", "current": "600mA",
+    "name": "2N2222",
+    "type": "NPN Transistor",
+    "voltage": "40V",
+    "current": "600mA",
     "datasheet_url": "https://www.onsemi.com/pdf/datasheet/p2n2222a-d.pdf",
-    "tags": ["transistor", "npn", "general-purpose"]
+    "tags": [
+      "transistor",
+      "npn",
+      "general-purpose"
+    ],
+    "power": "625mW",
+    "package": "TO-18",
+    "gain": "35-300",
+    "frequency": "300MHz",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "mounting": "Through-Hole"
   },
   "2N3904": {
-    "name": "2N3904", "type": "NPN Transistor",
-    "voltage": "40V", "current": "200mA",
+    "name": "2N3904",
+    "type": "NPN Transistor",
+    "voltage": "40V",
+    "current": "200mA",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/2N3903-D.PDF",
-    "tags": ["transistor", "npn", "general-purpose"]
+    "tags": [
+      "transistor",
+      "npn",
+      "general-purpose"
+    ],
+    "power": "625mW",
+    "package": "TO-92",
+    "gain": "100-300",
+    "frequency": "300MHz",
+    "temp_range": "-55\u00b0C to +150\u00b0C",
+    "mounting": "Through-Hole"
   },
   "TIP31C": {
-    "name": "TIP31C", "type": "NPN Power Transistor",
-    "voltage": "100V", "current": "3A",
+    "name": "TIP31C",
+    "type": "NPN Power Transistor",
+    "voltage": "100V",
+    "current": "3A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP31C-D.PDF",
-    "tags": ["transistor", "npn", "power"]
+    "tags": [
+      "transistor",
+      "npn",
+      "power"
+    ],
+    "power": "40W",
+    "package": "TO-220",
+    "gain": "10-50",
+    "temp_range": "-40\u00b0C to +150\u00b0C",
+    "mounting": "Through-Hole"
   },
   "TIP41C": {
-    "name": "TIP41C", "type": "NPN Power Transistor",
-    "voltage": "100V", "current": "6A",
+    "name": "TIP41C",
+    "type": "NPN Power Transistor",
+    "voltage": "100V",
+    "current": "6A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP41-D.PDF",
-    "tags": ["transistor", "npn", "power"]
+    "tags": [
+      "transistor",
+      "npn",
+      "power"
+    ]
   },
   "BD135": {
-    "name": "BD135", "type": "NPN Power Transistor",
-    "voltage": "45V", "current": "1.5A",
+    "name": "BD135",
+    "type": "NPN Power Transistor",
+    "voltage": "45V",
+    "current": "1.5A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/BD135-D.PDF",
-    "tags": ["transistor", "npn", "power"]
+    "tags": [
+      "transistor",
+      "npn",
+      "power"
+    ]
   },
   "BC557": {
-    "name": "BC557", "type": "PNP Transistor",
-    "voltage": "45V", "current": "100mA",
+    "name": "BC557",
+    "type": "PNP Transistor",
+    "voltage": "45V",
+    "current": "100mA",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC556-D.PDF",
-    "tags": ["transistor", "pnp", "small-signal"]
+    "tags": [
+      "transistor",
+      "pnp",
+      "small-signal"
+    ],
+    "power": "500mW",
+    "package": "TO-92",
+    "gain": "125-500",
+    "frequency": "150MHz",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "mounting": "Through-Hole"
   },
   "BC558": {
-    "name": "BC558", "type": "PNP Transistor",
-    "voltage": "30V", "current": "100mA",
+    "name": "BC558",
+    "type": "PNP Transistor",
+    "voltage": "30V",
+    "current": "100mA",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC556-D.PDF",
-    "tags": ["transistor", "pnp", "small-signal"]
+    "tags": [
+      "transistor",
+      "pnp",
+      "small-signal"
+    ]
   },
   "2N3906": {
-    "name": "2N3906", "type": "PNP Transistor",
-    "voltage": "40V", "current": "200mA",
+    "name": "2N3906",
+    "type": "PNP Transistor",
+    "voltage": "40V",
+    "current": "200mA",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/2N3906-D.PDF",
-    "tags": ["transistor", "pnp", "general-purpose"]
+    "tags": [
+      "transistor",
+      "pnp",
+      "general-purpose"
+    ],
+    "power": "625mW",
+    "package": "TO-92",
+    "gain": "100-300",
+    "frequency": "250MHz",
+    "temp_range": "-55\u00b0C to +150\u00b0C",
+    "mounting": "Through-Hole"
   },
   "TIP32C": {
-    "name": "TIP32C", "type": "PNP Power Transistor",
-    "voltage": "100V", "current": "3A",
+    "name": "TIP32C",
+    "type": "PNP Power Transistor",
+    "voltage": "100V",
+    "current": "3A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP32-D.PDF",
-    "tags": ["transistor", "pnp", "power"]
+    "tags": [
+      "transistor",
+      "pnp",
+      "power"
+    ]
   },
   "TIP42C": {
-    "name": "TIP42C", "type": "PNP Power Transistor",
-    "voltage": "100V", "current": "6A",
+    "name": "TIP42C",
+    "type": "PNP Power Transistor",
+    "voltage": "100V",
+    "current": "6A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP42-D.PDF",
-    "tags": ["transistor", "pnp", "power"]
+    "tags": [
+      "transistor",
+      "pnp",
+      "power"
+    ]
   },
   "IRF540N": {
-    "name": "IRF540N", "type": "N-Channel MOSFET",
-    "voltage": "100V", "current": "33A",
+    "name": "IRF540N",
+    "type": "N-Channel MOSFET",
+    "voltage": "100V",
+    "current": "33A",
     "datasheet_url": "https://www.infineon.com/dgdl/irf540n.pdf?fileId=5546d462533600a40153563b3a9f220d",
-    "tags": ["mosfet", "n-channel", "power"]
+    "tags": [
+      "mosfet",
+      "n-channel",
+      "power"
+    ],
+    "power": "150W",
+    "package": "TO-220",
+    "rds_on": "44m\u03a9",
+    "vgs_th": "2-4V",
+    "frequency": "Note:fast",
+    "temp_range": "-55\u00b0C to +175\u00b0C",
+    "mounting": "Through-Hole"
   },
   "IRF840": {
-    "name": "IRF840", "type": "N-Channel MOSFET",
-    "voltage": "500V", "current": "8A",
+    "name": "IRF840",
+    "type": "N-Channel MOSFET",
+    "voltage": "500V",
+    "current": "8A",
     "datasheet_url": "https://www.vishay.com/docs/91291/irf840.pdf",
-    "tags": ["mosfet", "n-channel", "power", "high-voltage"]
+    "tags": [
+      "mosfet",
+      "n-channel",
+      "power",
+      "high-voltage"
+    ],
+    "power": "125W",
+    "package": "TO-220",
+    "rds_on": "850m\u03a9",
+    "vgs_th": "2-4V",
+    "temp_range": "-55\u00b0C to +175\u00b0C",
+    "mounting": "Through-Hole"
   },
   "IRFZ44N": {
-    "name": "IRFZ44N", "type": "N-Channel MOSFET",
-    "voltage": "55V", "current": "49A",
+    "name": "IRFZ44N",
+    "type": "N-Channel MOSFET",
+    "voltage": "55V",
+    "current": "49A",
     "datasheet_url": "https://www.infineon.com/dgdl/irfz44n.pdf?fileId=5546d462533600a4015356408dc421a6",
-    "tags": ["mosfet", "n-channel", "power", "logic-level"]
+    "tags": [
+      "mosfet",
+      "n-channel",
+      "power",
+      "logic-level"
+    ],
+    "power": "110W",
+    "package": "TO-220",
+    "rds_on": "17.5m\u03a9",
+    "vgs_th": "2-4V",
+    "temp_range": "-55\u00b0C to +175\u00b0C",
+    "mounting": "Through-Hole"
   },
   "2N7000": {
-    "name": "2N7000", "type": "N-Channel MOSFET",
-    "voltage": "60V", "current": "200mA",
+    "name": "2N7000",
+    "type": "N-Channel MOSFET",
+    "voltage": "60V",
+    "current": "200mA",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/2N7000-D.PDF",
-    "tags": ["mosfet", "n-channel", "small-signal"]
+    "tags": [
+      "mosfet",
+      "n-channel",
+      "small-signal"
+    ],
+    "power": "400mW",
+    "package": "TO-92",
+    "rds_on": "1.8\u03a9",
+    "vgs_th": "0.8-3V",
+    "temp_range": "-55\u00b0C to +175\u00b0C",
+    "mounting": "Through-Hole"
   },
   "IRF9540N": {
-    "name": "IRF9540N", "type": "P-Channel MOSFET",
-    "voltage": "100V", "current": "23A",
+    "name": "IRF9540N",
+    "type": "P-Channel MOSFET",
+    "voltage": "100V",
+    "current": "23A",
     "datasheet_url": "https://www.infineon.com/dgdl/irf9540n.pdf?fileId=5546d462533600a4015356455f5625bd",
-    "tags": ["mosfet", "p-channel", "power"]
+    "tags": [
+      "mosfet",
+      "p-channel",
+      "power"
+    ]
   },
   "IRF9630": {
-    "name": "IRF9630", "type": "P-Channel MOSFET",
-    "voltage": "200V", "current": "6.5A",
+    "name": "IRF9630",
+    "type": "P-Channel MOSFET",
+    "voltage": "200V",
+    "current": "6.5A",
     "datasheet_url": "https://www.vishay.com/docs/91252/91252.pdf",
-    "tags": ["mosfet", "p-channel", "power", "high-voltage"]
+    "tags": [
+      "mosfet",
+      "p-channel",
+      "power",
+      "high-voltage"
+    ]
   },
   "1N4007": {
-    "name": "1N4007", "type": "Rectifier Diode",
-    "voltage": "1000V", "current": "1A",
+    "name": "1N4007",
+    "type": "Rectifier Diode",
+    "voltage": "1000V",
+    "current": "1A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N4001-D.PDF",
-    "tags": ["diode", "rectifier"]
+    "tags": [
+      "diode",
+      "rectifier"
+    ],
+    "power": "3W",
+    "package": "DO-41",
+    "frequency": "N/A",
+    "temp_range": "-65\u00b0C to +175\u00b0C",
+    "mounting": "Through-Hole"
   },
   "1N4001": {
-    "name": "1N4001", "type": "Rectifier Diode",
-    "voltage": "50V", "current": "1A",
+    "name": "1N4001",
+    "type": "Rectifier Diode",
+    "voltage": "50V",
+    "current": "1A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N4001-D.PDF",
-    "tags": ["diode", "rectifier"]
+    "tags": [
+      "diode",
+      "rectifier"
+    ]
   },
   "1N5408": {
-    "name": "1N5408", "type": "Rectifier Diode",
-    "voltage": "1000V", "current": "3A",
+    "name": "1N5408",
+    "type": "Rectifier Diode",
+    "voltage": "1000V",
+    "current": "3A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N5400-D.PDF",
-    "tags": ["diode", "rectifier", "power"]
+    "tags": [
+      "diode",
+      "rectifier",
+      "power"
+    ]
   },
   "1N4148": {
-    "name": "1N4148", "type": "Signal Diode",
-    "voltage": "100V", "current": "200mA",
+    "name": "1N4148",
+    "type": "Signal Diode",
+    "voltage": "100V",
+    "current": "200mA",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N914-D.PDF",
-    "tags": ["diode", "signal", "switching", "fast"]
+    "tags": [
+      "diode",
+      "signal",
+      "switching",
+      "fast"
+    ],
+    "power": "500mW",
+    "package": "DO-35",
+    "frequency": "4ns recovery",
+    "temp_range": "-65\u00b0C to +175\u00b0C",
+    "mounting": "Through-Hole"
   },
   "1N914": {
-    "name": "1N914", "type": "Signal Diode",
-    "voltage": "100V", "current": "200mA",
+    "name": "1N914",
+    "type": "Signal Diode",
+    "voltage": "100V",
+    "current": "200mA",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N914-D.PDF",
-    "tags": ["diode", "signal", "switching"]
+    "tags": [
+      "diode",
+      "signal",
+      "switching"
+    ]
   },
   "1N5819": {
-    "name": "1N5819", "type": "Schottky Diode",
-    "voltage": "40V", "current": "1A",
+    "name": "1N5819",
+    "type": "Schottky Diode",
+    "voltage": "40V",
+    "current": "1A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N5817-D.PDF",
-    "tags": ["diode", "schottky", "fast"]
+    "tags": [
+      "diode",
+      "schottky",
+      "fast"
+    ],
+    "power": "2.5W",
+    "package": "DO-41",
+    "temp_range": "-65\u00b0C to +125\u00b0C",
+    "mounting": "Through-Hole"
   },
   "1N5822": {
-    "name": "1N5822", "type": "Schottky Diode",
-    "voltage": "40V", "current": "3A",
+    "name": "1N5822",
+    "type": "Schottky Diode",
+    "voltage": "40V",
+    "current": "3A",
     "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N5820-D.PDF",
-    "tags": ["diode", "schottky", "fast", "power"]
+    "tags": [
+      "diode",
+      "schottky",
+      "fast",
+      "power"
+    ]
+  },
+  "LM2576-5V": {
+    "name": "LM2576-5V",
+    "type": "Buck Switching Regulator",
+    "voltage": "5V",
+    "current": "3A",
+    "power": "11.6W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "frequency": "52kHz",
+    "accuracy": "\u00b14%",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm2576.pdf",
+    "tags": [
+      "regulator",
+      "switching",
+      "buck",
+      "stepdown"
+    ]
+  },
+  "LM2596-5V": {
+    "name": "LM2596-5V",
+    "type": "Buck Switching Regulator",
+    "voltage": "5V",
+    "current": "3A",
+    "power": "15W",
+    "package": "TO-263",
+    "mounting": "SMD",
+    "frequency": "150kHz",
+    "accuracy": "\u00b14%",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm2596.pdf",
+    "tags": [
+      "regulator",
+      "switching",
+      "buck",
+      "stepdown"
+    ]
+  },
+  "LM2677": {
+    "name": "LM2677",
+    "type": "Buck Switching Regulator",
+    "voltage": "5V",
+    "current": "5A",
+    "power": "20W",
+    "package": "TO-263",
+    "mounting": "SMD",
+    "frequency": "260kHz",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm2677.pdf",
+    "tags": [
+      "regulator",
+      "switching",
+      "buck",
+      "high-current"
+    ]
+  },
+  "MC34063": {
+    "name": "MC34063",
+    "type": "Switching Regulator Controller",
+    "voltage": "40V",
+    "current": "1.5A",
+    "power": "1.25W",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "frequency": "100kHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/MC34063A-D.PDF",
+    "tags": [
+      "regulator",
+      "switching",
+      "controller",
+      "buck",
+      "boost"
+    ]
+  },
+  "XL4016": {
+    "name": "XL4016",
+    "type": "Buck Switching Regulator",
+    "voltage": "8-36V",
+    "current": "8A",
+    "power": "15W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "frequency": "180kHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.alldatasheet.com/search/?q=XL4016",
+    "tags": [
+      "regulator",
+      "switching",
+      "buck",
+      "high-power"
+    ]
+  },
+  "TL431": {
+    "name": "TL431",
+    "type": "Adjustable Shunt Regulator",
+    "voltage": "2.5-36V",
+    "current": "100mA",
+    "power": "1W",
+    "package": "TO-92",
+    "mounting": "Through-Hole",
+    "accuracy": "\u00b11%",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/tl431.pdf",
+    "tags": [
+      "shunt",
+      "regulator",
+      "reference",
+      "adjustable"
+    ]
+  },
+  "LM4040": {
+    "name": "LM4040",
+    "type": "Precision Voltage Reference",
+    "voltage": "2.048V",
+    "current": "15mA",
+    "accuracy": "\u00b10.1%",
+    "package": "SOT-23",
+    "mounting": "SMD",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm4040-n.pdf",
+    "tags": [
+      "reference",
+      "precision",
+      "smd"
+    ]
+  },
+  "REF02": {
+    "name": "REF02",
+    "type": "Precision Voltage Reference",
+    "voltage": "5V",
+    "current": "20mA",
+    "accuracy": "\u00b10.1%",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.analog.com/en/products/ref02.html",
+    "tags": [
+      "reference",
+      "precision",
+      "5v"
+    ]
+  },
+  "LM393": {
+    "name": "LM393",
+    "type": "Dual Comparator",
+    "voltage": "2-36V",
+    "current": "1mA",
+    "power": "500mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "frequency": "1.3MHz",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm393.pdf",
+    "tags": [
+      "comparator",
+      "dual",
+      "open-collector"
+    ]
+  },
+  "LM339": {
+    "name": "LM339",
+    "type": "Quad Comparator",
+    "voltage": "2-36V",
+    "current": "1mA",
+    "power": "500mW",
+    "package": "DIP-14",
+    "mounting": "Through-Hole",
+    "frequency": "1.3MHz",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm339.pdf",
+    "tags": [
+      "comparator",
+      "quad",
+      "open-collector"
+    ]
+  },
+  "LM311": {
+    "name": "LM311",
+    "type": "Comparator",
+    "voltage": "5-15V",
+    "current": "7.5mA",
+    "power": "500mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "frequency": "200ns",
+    "temp_range": "-55\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm311.pdf",
+    "tags": [
+      "comparator",
+      "fast",
+      "single"
+    ]
+  },
+  "LM386": {
+    "name": "LM386",
+    "type": "Audio Amplifier IC",
+    "voltage": "5-12V",
+    "current": "8mA",
+    "power": "660mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "gain": "20-200",
+    "frequency": "300kHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm386.pdf",
+    "tags": [
+      "amplifier",
+      "audio",
+      "low-power"
+    ]
+  },
+  "TL082": {
+    "name": "TL082",
+    "type": "Dual JFET Op-Amp",
+    "voltage": "\u00b118V",
+    "current": "17mA",
+    "power": "680mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "gain": "106dB",
+    "frequency": "4MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/tl082.pdf",
+    "tags": [
+      "opamp",
+      "jfet",
+      "dual",
+      "audio"
+    ]
+  },
+  "OP07": {
+    "name": "OP07",
+    "type": "Precision Op-Amp",
+    "voltage": "\u00b122V",
+    "current": "4mA",
+    "power": "500mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "gain": "120dB",
+    "frequency": "0.6MHz",
+    "accuracy": "\u00b125\u00b5V",
+    "temp_range": "-55\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/op07.pdf",
+    "tags": [
+      "opamp",
+      "precision",
+      "low-offset"
+    ]
+  },
+  "MCP6002": {
+    "name": "MCP6002",
+    "type": "Dual Op-Amp",
+    "voltage": "1.8-6V",
+    "current": "100\u00b5A",
+    "power": "625mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "gain": "110dB",
+    "frequency": "1MHz",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6001-1R-1U-2-4-Data-Sheet-DS20001733L.pdf",
+    "tags": [
+      "opamp",
+      "rail-to-rail",
+      "low-power",
+      "dual"
+    ]
+  },
+  "INA219": {
+    "name": "INA219",
+    "type": "Current/Power Monitor",
+    "voltage": "3.3-5V",
+    "current": "1mA",
+    "accuracy": "\u00b11%",
+    "package": "SOIC-8",
+    "mounting": "SMD",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/ina219.pdf",
+    "tags": [
+      "sensor",
+      "current",
+      "power",
+      "i2c",
+      "monitor"
+    ]
+  },
+  "BC337": {
+    "name": "BC337",
+    "type": "NPN Transistor",
+    "voltage": "45V",
+    "current": "800mA",
+    "power": "625mW",
+    "package": "TO-92",
+    "mounting": "Through-Hole",
+    "gain": "100-600",
+    "frequency": "100MHz",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC337-D.PDF",
+    "tags": [
+      "transistor",
+      "npn",
+      "medium-power"
+    ]
+  },
+  "2N5551": {
+    "name": "2N5551",
+    "type": "NPN Transistor",
+    "voltage": "160V",
+    "current": "600mA",
+    "power": "625mW",
+    "package": "TO-92",
+    "mounting": "Through-Hole",
+    "gain": "80-250",
+    "frequency": "100MHz",
+    "temp_range": "-55\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/2N5550-D.PDF",
+    "tags": [
+      "transistor",
+      "npn",
+      "high-voltage"
+    ]
+  },
+  "MJE3055T": {
+    "name": "MJE3055T",
+    "type": "NPN Power Transistor",
+    "voltage": "60V",
+    "current": "10A",
+    "power": "75W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "gain": "20-70",
+    "frequency": "2MHz",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/MJE3055T-D.PDF",
+    "tags": [
+      "transistor",
+      "npn",
+      "power",
+      "high-current"
+    ]
+  },
+  "TIP120": {
+    "name": "TIP120",
+    "type": "NPN Darlington Transistor",
+    "voltage": "60V",
+    "current": "5A",
+    "power": "65W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "gain": "1000",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP120-D.PDF",
+    "tags": [
+      "transistor",
+      "npn",
+      "darlington",
+      "power"
+    ]
+  },
+  "BC327": {
+    "name": "BC327",
+    "type": "PNP Transistor",
+    "voltage": "45V",
+    "current": "800mA",
+    "power": "625mW",
+    "package": "TO-92",
+    "mounting": "Through-Hole",
+    "gain": "100-600",
+    "frequency": "100MHz",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/BC327-D.PDF",
+    "tags": [
+      "transistor",
+      "pnp",
+      "medium-power"
+    ]
+  },
+  "2N5401": {
+    "name": "2N5401",
+    "type": "PNP Transistor",
+    "voltage": "150V",
+    "current": "600mA",
+    "power": "625mW",
+    "package": "TO-92",
+    "mounting": "Through-Hole",
+    "gain": "100-400",
+    "temp_range": "-55\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/2N5401-D.PDF",
+    "tags": [
+      "transistor",
+      "pnp",
+      "high-voltage"
+    ]
+  },
+  "MJE2955T": {
+    "name": "MJE2955T",
+    "type": "PNP Power Transistor",
+    "voltage": "60V",
+    "current": "10A",
+    "power": "75W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "gain": "20-70",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/MJE2955T-D.PDF",
+    "tags": [
+      "transistor",
+      "pnp",
+      "power",
+      "high-current"
+    ]
+  },
+  "TIP125": {
+    "name": "TIP125",
+    "type": "PNP Darlington Transistor",
+    "voltage": "60V",
+    "current": "5A",
+    "power": "65W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "gain": "1000",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/TIP125-D.PDF",
+    "tags": [
+      "transistor",
+      "pnp",
+      "darlington",
+      "power"
+    ]
+  },
+  "IRF3205": {
+    "name": "IRF3205",
+    "type": "N-Channel MOSFET",
+    "voltage": "55V",
+    "current": "110A",
+    "power": "200W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "rds_on": "8m\u03a9",
+    "vgs_th": "2-4V",
+    "temp_range": "-55\u00b0C to +175\u00b0C",
+    "datasheet_url": "https://www.infineon.com/dgdl/irf3205.pdf?fileId=5546d462533600a4015355e329b1197e",
+    "tags": [
+      "mosfet",
+      "n-channel",
+      "power",
+      "high-current"
+    ]
+  },
+  "IRFP460": {
+    "name": "IRFP460",
+    "type": "N-Channel MOSFET",
+    "voltage": "500V",
+    "current": "20A",
+    "power": "280W",
+    "package": "TO-247",
+    "mounting": "Through-Hole",
+    "rds_on": "270m\u03a9",
+    "vgs_th": "2-4V",
+    "temp_range": "-55\u00b0C to +175\u00b0C",
+    "datasheet_url": "https://www.vishay.com/docs/91291/irfp460.pdf",
+    "tags": [
+      "mosfet",
+      "n-channel",
+      "power",
+      "high-voltage"
+    ]
+  },
+  "IPP60R360P7": {
+    "name": "IPP60R360P7",
+    "type": "N-Channel MOSFET",
+    "voltage": "600V",
+    "current": "11A",
+    "power": "79W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "rds_on": "360m\u03a9",
+    "vgs_th": "3-5V",
+    "temp_range": "-55\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.infineon.com/cms/en/product/power/mosfet/650v-mosfet/",
+    "tags": [
+      "mosfet",
+      "n-channel",
+      "high-voltage",
+      "power-factor"
+    ]
+  },
+  "AO3400": {
+    "name": "AO3400",
+    "type": "N-Channel MOSFET",
+    "voltage": "30V",
+    "current": "5.7A",
+    "power": "1.4W",
+    "package": "SOT-23",
+    "mounting": "SMD",
+    "rds_on": "28m\u03a9",
+    "vgs_th": "1-2.5V",
+    "temp_range": "-55\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.aosmd.com/res/data_sheets/AO3400A.pdf",
+    "tags": [
+      "mosfet",
+      "n-channel",
+      "smd",
+      "logic-level"
+    ]
+  },
+  "FQP30N06L": {
+    "name": "FQP30N06L",
+    "type": "N-Channel MOSFET",
+    "voltage": "60V",
+    "current": "30A",
+    "power": "107W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "rds_on": "35m\u03a9",
+    "vgs_th": "1-2.5V",
+    "temp_range": "-55\u00b0C to +175\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/FQP30N06L-D.PDF",
+    "tags": [
+      "mosfet",
+      "n-channel",
+      "logic-level",
+      "power"
+    ]
+  },
+  "IRF4905": {
+    "name": "IRF4905",
+    "type": "P-Channel MOSFET",
+    "voltage": "55V",
+    "current": "74A",
+    "power": "200W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "rds_on": "20m\u03a9",
+    "vgs_th": "-2 to -4V",
+    "temp_range": "-55\u00b0C to +175\u00b0C",
+    "datasheet_url": "https://www.infineon.com/dgdl/irf4905.pdf?fileId=5546d462533600a40153561f79f51b4a",
+    "tags": [
+      "mosfet",
+      "p-channel",
+      "power",
+      "high-current"
+    ]
+  },
+  "1N4148W": {
+    "name": "1N4148W",
+    "type": "Signal Diode",
+    "voltage": "100V",
+    "current": "150mA",
+    "power": "200mW",
+    "package": "SOD-123",
+    "mounting": "SMD",
+    "frequency": "4ns recovery",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.vishay.com/docs/85748/1n4148w.pdf",
+    "tags": [
+      "diode",
+      "signal",
+      "smd",
+      "switching"
+    ]
+  },
+  "BAT85": {
+    "name": "BAT85",
+    "type": "Schottky Diode",
+    "voltage": "30V",
+    "current": "200mA",
+    "power": "250mW",
+    "package": "DO-35",
+    "mounting": "Through-Hole",
+    "frequency": "fast",
+    "temp_range": "-65\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.vishay.com/docs/85655/bat85.pdf",
+    "tags": [
+      "diode",
+      "schottky",
+      "small",
+      "fast"
+    ]
+  },
+  "SB540": {
+    "name": "SB540",
+    "type": "Schottky Rectifier",
+    "voltage": "40V",
+    "current": "5A",
+    "power": "15W",
+    "package": "DO-201",
+    "mounting": "Through-Hole",
+    "temp_range": "-65\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/SB530-D.PDF",
+    "tags": [
+      "diode",
+      "schottky",
+      "power",
+      "rectifier"
+    ]
+  },
+  "MBR10100": {
+    "name": "MBR10100",
+    "type": "Schottky Rectifier",
+    "voltage": "100V",
+    "current": "10A",
+    "power": "15W",
+    "package": "TO-220",
+    "mounting": "Through-Hole",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/MBR10100-D.PDF",
+    "tags": [
+      "diode",
+      "schottky",
+      "power",
+      "high-current"
+    ]
+  },
+  "BZX55C5V1": {
+    "name": "BZX55C5V1",
+    "type": "Zener Diode",
+    "voltage": "5.1V",
+    "current": "20mA",
+    "power": "500mW",
+    "package": "DO-35",
+    "mounting": "Through-Hole",
+    "accuracy": "\u00b15%",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.vishay.com/docs/85604/bzx55.pdf",
+    "tags": [
+      "diode",
+      "zener",
+      "5v",
+      "regulation"
+    ]
+  },
+  "1N5231B": {
+    "name": "1N5231B",
+    "type": "Zener Diode",
+    "voltage": "5.1V",
+    "current": "20mA",
+    "power": "500mW",
+    "package": "DO-35",
+    "mounting": "Through-Hole",
+    "accuracy": "\u00b15%",
+    "temp_range": "-65\u00b0C to +200\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/1N5221B-D.PDF",
+    "tags": [
+      "diode",
+      "zener",
+      "5v"
+    ]
+  },
+  "P6KE18A": {
+    "name": "P6KE18A",
+    "type": "TVS Diode",
+    "voltage": "18V",
+    "current": "28A peak",
+    "power": "600W",
+    "package": "DO-204",
+    "mounting": "Through-Hole",
+    "temp_range": "-65\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.vishay.com/docs/88369/p6ke.pdf",
+    "tags": [
+      "diode",
+      "tvs",
+      "protection",
+      "transient"
+    ]
+  },
+  "ATMEGA328P-PU": {
+    "name": "ATmega328P-PU",
+    "type": "8-bit Microcontroller",
+    "voltage": "1.8-5.5V",
+    "current": "200mA",
+    "power": "1W",
+    "package": "DIP-28",
+    "mounting": "Through-Hole",
+    "frequency": "20MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf",
+    "tags": [
+      "microcontroller",
+      "avr",
+      "arduino",
+      "8-bit",
+      "dip"
+    ]
+  },
+  "ATMEGA328P": {
+    "name": "ATmega328P",
+    "type": "8-bit Microcontroller",
+    "voltage": "1.8-5.5V",
+    "current": "200mA",
+    "power": "1W",
+    "package": "TQFP-32",
+    "mounting": "SMD",
+    "frequency": "20MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf",
+    "tags": [
+      "microcontroller",
+      "avr",
+      "arduino",
+      "8-bit",
+      "smd"
+    ]
+  },
+  "ATMEGA2560": {
+    "name": "ATmega2560",
+    "type": "8-bit Microcontroller",
+    "voltage": "1.8-5.5V",
+    "current": "300mA",
+    "power": "1.5W",
+    "package": "TQFP-100",
+    "mounting": "SMD",
+    "frequency": "16MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega640-1280-1281-2560-2561-Datasheet-DS40002211A.pdf",
+    "tags": [
+      "microcontroller",
+      "avr",
+      "arduino",
+      "mega",
+      "8-bit"
+    ]
+  },
+  "ATTINY85": {
+    "name": "ATtiny85",
+    "type": "8-bit Microcontroller",
+    "voltage": "1.8-5.5V",
+    "current": "40mA",
+    "power": "200mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "frequency": "20MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2586-AVR-8-bit-Microcontroller-ATtiny25-ATtiny45-ATtiny85_Datasheet.pdf",
+    "tags": [
+      "microcontroller",
+      "avr",
+      "tiny",
+      "8-bit"
+    ]
+  },
+  "ATTINY13A": {
+    "name": "ATtiny13A",
+    "type": "8-bit Microcontroller",
+    "voltage": "1.8-5.5V",
+    "current": "10mA",
+    "power": "50mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "frequency": "20MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf",
+    "tags": [
+      "microcontroller",
+      "avr",
+      "tiny",
+      "small",
+      "8-bit"
+    ]
+  },
+  "PIC16F877A": {
+    "name": "PIC16F877A",
+    "type": "8-bit Microcontroller",
+    "voltage": "2-5.5V",
+    "current": "250mA",
+    "power": "1W",
+    "package": "DIP-40",
+    "mounting": "Through-Hole",
+    "frequency": "20MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/39582b.pdf",
+    "tags": [
+      "microcontroller",
+      "pic",
+      "8-bit"
+    ]
+  },
+  "PIC18F4550": {
+    "name": "PIC18F4550",
+    "type": "8-bit Microcontroller",
+    "voltage": "2-5.5V",
+    "current": "300mA",
+    "power": "1W",
+    "package": "DIP-40",
+    "mounting": "Through-Hole",
+    "frequency": "48MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/39632e.pdf",
+    "tags": [
+      "microcontroller",
+      "pic",
+      "usb",
+      "8-bit"
+    ]
+  },
+  "STM32F103C8T6": {
+    "name": "STM32F103C8T6",
+    "type": "32-bit ARM Microcontroller",
+    "voltage": "2-3.6V",
+    "current": "150mA",
+    "power": "500mW",
+    "package": "LQFP-48",
+    "mounting": "SMD",
+    "frequency": "72MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.st.com/resource/en/datasheet/stm32f103c8.pdf",
+    "tags": [
+      "microcontroller",
+      "arm",
+      "stm32",
+      "32-bit",
+      "bluepill"
+    ]
+  },
+  "STM32F401CCU6": {
+    "name": "STM32F401CCU6",
+    "type": "32-bit ARM Microcontroller",
+    "voltage": "1.7-3.6V",
+    "current": "120mA",
+    "power": "400mW",
+    "package": "UFQFPN-48",
+    "mounting": "SMD",
+    "frequency": "84MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.st.com/resource/en/datasheet/stm32f401cc.pdf",
+    "tags": [
+      "microcontroller",
+      "arm",
+      "stm32",
+      "32-bit",
+      "blackpill"
+    ]
+  },
+  "ESP8266": {
+    "name": "ESP8266",
+    "type": "WiFi Microcontroller",
+    "voltage": "3.3V",
+    "current": "300mA",
+    "power": "1W",
+    "package": "QFN-32",
+    "mounting": "SMD",
+    "frequency": "80MHz",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf",
+    "tags": [
+      "microcontroller",
+      "wifi",
+      "iot",
+      "esp",
+      "wireless"
+    ]
+  },
+  "ESP32": {
+    "name": "ESP32",
+    "type": "WiFi/BLE Microcontroller",
+    "voltage": "3.3V",
+    "current": "500mA",
+    "power": "1.5W",
+    "package": "QFN-48",
+    "mounting": "SMD",
+    "frequency": "240MHz",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf",
+    "tags": [
+      "microcontroller",
+      "wifi",
+      "bluetooth",
+      "iot",
+      "esp",
+      "dual-core"
+    ]
+  },
+  "RP2040": {
+    "name": "RP2040",
+    "type": "32-bit Dual-Core Microcontroller",
+    "voltage": "1.8-3.3V",
+    "current": "300mA",
+    "power": "1W",
+    "package": "QFN-56",
+    "mounting": "SMD",
+    "frequency": "133MHz",
+    "temp_range": "-20\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf",
+    "tags": [
+      "microcontroller",
+      "arm",
+      "raspberry",
+      "dual-core",
+      "32-bit"
+    ]
+  },
+  "MAX232": {
+    "name": "MAX232",
+    "type": "RS-232 Transceiver",
+    "voltage": "5V",
+    "current": "8mA",
+    "power": "40mW",
+    "package": "DIP-16",
+    "mounting": "Through-Hole",
+    "frequency": "120kbps",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/max232.pdf",
+    "tags": [
+      "transceiver",
+      "rs232",
+      "uart",
+      "serial",
+      "level-shift"
+    ]
+  },
+  "MAX485": {
+    "name": "MAX485",
+    "type": "RS-485 Transceiver",
+    "voltage": "5V",
+    "current": "300\u00b5A",
+    "power": "1.5mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "frequency": "2.5Mbps",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.analog.com/en/products/max485.html",
+    "tags": [
+      "transceiver",
+      "rs485",
+      "differential",
+      "industrial"
+    ]
+  },
+  "MCP2551": {
+    "name": "MCP2551",
+    "type": "CAN Bus Transceiver",
+    "voltage": "5V",
+    "current": "75mA",
+    "power": "375mW",
+    "package": "DIP-8",
+    "mounting": "Through-Hole",
+    "frequency": "1Mbps",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/21667f.pdf",
+    "tags": [
+      "transceiver",
+      "can",
+      "automotive",
+      "bus"
+    ]
+  },
+  "PCA9685": {
+    "name": "PCA9685",
+    "type": "16-Channel PWM Controller",
+    "voltage": "2.3-5.5V",
+    "current": "400mA",
+    "frequency": "1.6kHz",
+    "package": "SSOP-28",
+    "mounting": "SMD",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/PCA9685.pdf",
+    "tags": [
+      "pwm",
+      "i2c",
+      "servo",
+      "led",
+      "16-channel"
+    ]
+  },
+  "PCF8574": {
+    "name": "PCF8574",
+    "type": "I2C IO Expander",
+    "voltage": "2.5-6V",
+    "current": "100mA",
+    "power": "200mW",
+    "package": "DIP-16",
+    "mounting": "Through-Hole",
+    "frequency": "100kHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/pcf8574.pdf",
+    "tags": [
+      "io-expander",
+      "i2c",
+      "digital",
+      "gpio"
+    ]
+  },
+  "MCP23017": {
+    "name": "MCP23017",
+    "type": "16-bit I2C IO Expander",
+    "voltage": "1.8-5.5V",
+    "current": "150mA",
+    "package": "DIP-28",
+    "mounting": "Through-Hole",
+    "frequency": "1.7MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf",
+    "tags": [
+      "io-expander",
+      "i2c",
+      "gpio",
+      "16-bit"
+    ]
+  },
+  "L298N": {
+    "name": "L298N",
+    "type": "Dual H-Bridge Motor Driver",
+    "voltage": "5-46V",
+    "current": "2A",
+    "power": "25W",
+    "package": "Multiwatt-15",
+    "mounting": "Through-Hole",
+    "temp_range": "-25\u00b0C to +130\u00b0C",
+    "datasheet_url": "https://www.st.com/resource/en/datasheet/l298.pdf",
+    "tags": [
+      "motor",
+      "driver",
+      "h-bridge",
+      "dual",
+      "dc",
+      "stepper"
+    ]
+  },
+  "L293D": {
+    "name": "L293D",
+    "type": "Dual H-Bridge Motor Driver",
+    "voltage": "4.5-36V",
+    "current": "600mA",
+    "power": "4W",
+    "package": "DIP-16",
+    "mounting": "Through-Hole",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/l293d.pdf",
+    "tags": [
+      "motor",
+      "driver",
+      "h-bridge",
+      "dual",
+      "dc",
+      "stepper"
+    ]
+  },
+  "DRV8825": {
+    "name": "DRV8825",
+    "type": "Stepper Motor Driver",
+    "voltage": "8.2-45V",
+    "current": "2.5A",
+    "power": "3W",
+    "package": "HTSSOP-28",
+    "mounting": "SMD",
+    "frequency": "1/32 microstepping",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/drv8825.pdf",
+    "tags": [
+      "motor",
+      "driver",
+      "stepper",
+      "microstepping",
+      "cnc"
+    ]
+  },
+  "A4988": {
+    "name": "A4988",
+    "type": "Stepper Motor Driver",
+    "voltage": "8-35V",
+    "current": "2A",
+    "power": "2W",
+    "package": "QFN-28",
+    "mounting": "SMD",
+    "temp_range": "-20\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.allegromicro.com/en/products/motor-drivers/brush-dc-motor-drivers/a4988",
+    "tags": [
+      "motor",
+      "driver",
+      "stepper",
+      "microstepping",
+      "3d-printer"
+    ]
+  },
+  "TB6600": {
+    "name": "TB6600",
+    "type": "Stepper Motor Driver",
+    "voltage": "9-42V",
+    "current": "4A",
+    "power": "50W",
+    "package": "Module",
+    "mounting": "Module",
+    "frequency": "1/32 microstepping",
+    "temp_range": "-10\u00b0C to +50\u00b0C",
+    "datasheet_url": "https://www.alldatasheet.com/search/?q=TB6600",
+    "tags": [
+      "motor",
+      "driver",
+      "stepper",
+      "high-current",
+      "cnc"
+    ]
+  },
+  "ULN2003": {
+    "name": "ULN2003A",
+    "type": "Darlington Transistor Array",
+    "voltage": "50V",
+    "current": "500mA",
+    "power": "2.4W",
+    "package": "DIP-16",
+    "mounting": "Through-Hole",
+    "temp_range": "-20\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/uln2003a.pdf",
+    "tags": [
+      "darlington",
+      "driver",
+      "relay",
+      "stepper",
+      "array"
+    ]
+  },
+  "74HC595": {
+    "name": "74HC595",
+    "type": "8-bit Shift Register",
+    "voltage": "2-6V",
+    "current": "70mA",
+    "power": "420mW",
+    "package": "DIP-16",
+    "mounting": "Through-Hole",
+    "frequency": "100MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74hc595.pdf",
+    "tags": [
+      "logic",
+      "shift-register",
+      "spi",
+      "serial-in",
+      "parallel-out"
+    ]
+  },
+  "74HC165": {
+    "name": "74HC165",
+    "type": "8-bit Parallel-In Shift Register",
+    "voltage": "2-6V",
+    "current": "80mA",
+    "power": "480mW",
+    "package": "DIP-16",
+    "mounting": "Through-Hole",
+    "frequency": "100MHz",
+    "logic_family": "CMOS",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74hc165.pdf",
+    "tags": [
+      "logic",
+      "shift-register",
+      "parallel-in",
+      "serial-out"
+    ]
+  },
+  "CD4051": {
+    "name": "CD4051",
+    "type": "8-Channel Analog Multiplexer",
+    "voltage": "3-20V",
+    "current": "10mA",
+    "power": "200mW",
+    "package": "DIP-16",
+    "mounting": "Through-Hole",
+    "frequency": "8MHz",
+    "logic_family": "CMOS",
+    "temp_range": "-55\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/cd4051b.pdf",
+    "tags": [
+      "mux",
+      "analog",
+      "switch",
+      "8-channel",
+      "cmos"
+    ]
+  },
+  "CD4066": {
+    "name": "CD4066",
+    "type": "Quad Bilateral Switch",
+    "voltage": "3-20V",
+    "current": "10mA",
+    "power": "200mW",
+    "package": "DIP-14",
+    "mounting": "Through-Hole",
+    "frequency": "40MHz",
+    "logic_family": "CMOS",
+    "temp_range": "-55\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/cd4066b.pdf",
+    "tags": [
+      "switch",
+      "analog",
+      "bilateral",
+      "quad",
+      "cmos"
+    ]
+  },
+  "SN74HC14": {
+    "name": "SN74HC14",
+    "type": "Hex Schmitt-Trigger Inverter",
+    "voltage": "2-6V",
+    "current": "80mA",
+    "power": "500mW",
+    "package": "DIP-14",
+    "mounting": "Through-Hole",
+    "frequency": "90MHz",
+    "logic_family": "CMOS",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74hc14.pdf",
+    "tags": [
+      "logic",
+      "inverter",
+      "schmitt-trigger",
+      "debounce"
+    ]
+  },
+  "MCP3208": {
+    "name": "MCP3208",
+    "type": "12-bit ADC",
+    "voltage": "2.7-5.5V",
+    "current": "550\u00b5A",
+    "power": "3mW",
+    "package": "DIP-16",
+    "mounting": "Through-Hole",
+    "frequency": "2MHz SPI",
+    "accuracy": "12-bit",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/21298e.pdf",
+    "tags": [
+      "adc",
+      "spi",
+      "12-bit",
+      "8-channel"
+    ]
+  },
+  "ADS1115": {
+    "name": "ADS1115",
+    "type": "16-bit ADC",
+    "voltage": "2-5.5V",
+    "current": "150\u00b5A",
+    "power": "800\u00b5W",
+    "package": "MSOP-10",
+    "mounting": "SMD",
+    "frequency": "860SPS",
+    "accuracy": "16-bit",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/ads1115.pdf",
+    "tags": [
+      "adc",
+      "i2c",
+      "16-bit",
+      "precision",
+      "differential"
+    ]
+  },
+  "MCP4725": {
+    "name": "MCP4725",
+    "type": "12-bit DAC",
+    "voltage": "2.7-5.5V",
+    "current": "1mA",
+    "accuracy": "12-bit",
+    "package": "SOT-23",
+    "mounting": "SMD",
+    "frequency": "400kHz I2C",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/22039d.pdf",
+    "tags": [
+      "dac",
+      "i2c",
+      "12-bit",
+      "single-channel"
+    ]
+  },
+  "LM35": {
+    "name": "LM35",
+    "type": "Temperature Sensor",
+    "voltage": "4-30V",
+    "current": "60\u00b5A",
+    "power": "1.8mW",
+    "package": "TO-92",
+    "mounting": "Through-Hole",
+    "accuracy": "\u00b10.5\u00b0C",
+    "temp_range": "-55\u00b0C to +150\u00b0C",
+    "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm35.pdf",
+    "tags": [
+      "sensor",
+      "temperature",
+      "analog",
+      "linear"
+    ]
+  },
+  "DS18B20": {
+    "name": "DS18B20",
+    "type": "Digital Temperature Sensor",
+    "voltage": "3-5.5V",
+    "current": "1.5mA",
+    "accuracy": "\u00b10.5\u00b0C",
+    "package": "TO-92",
+    "mounting": "Through-Hole",
+    "frequency": "1-Wire",
+    "temp_range": "-55\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf",
+    "tags": [
+      "sensor",
+      "temperature",
+      "digital",
+      "1-wire",
+      "addressable"
+    ]
+  },
+  "DHT22": {
+    "name": "DHT22",
+    "type": "Temperature & Humidity Sensor",
+    "voltage": "3.3-6V",
+    "current": "2.5mA",
+    "accuracy": "\u00b10.5\u00b0C / \u00b12%RH",
+    "package": "Module",
+    "mounting": "Through-Hole",
+    "temp_range": "-40\u00b0C to +80\u00b0C",
+    "datasheet_url": "https://www.sparkfun.com/datasheets/Sensors/Temperature/DHT22.pdf",
+    "tags": [
+      "sensor",
+      "temperature",
+      "humidity",
+      "digital"
+    ]
+  },
+  "MPU6050": {
+    "name": "MPU6050",
+    "type": "6-Axis IMU",
+    "voltage": "2.375-3.46V",
+    "current": "3.9mA",
+    "power": "13.5mW",
+    "package": "QFN-24",
+    "mounting": "SMD",
+    "frequency": "1kHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Datasheet1.pdf",
+    "tags": [
+      "sensor",
+      "imu",
+      "gyroscope",
+      "accelerometer",
+      "i2c"
+    ]
+  },
+  "HC-SR04": {
+    "name": "HC-SR04",
+    "type": "Ultrasonic Distance Sensor",
+    "voltage": "5V",
+    "current": "15mA",
+    "power": "75mW",
+    "package": "Module",
+    "mounting": "Module",
+    "frequency": "40kHz",
+    "temp_range": "0\u00b0C to +60\u00b0C",
+    "datasheet_url": "https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf",
+    "tags": [
+      "sensor",
+      "ultrasonic",
+      "distance",
+      "ranging"
+    ]
+  },
+  "TCRT5000": {
+    "name": "TCRT5000",
+    "type": "Reflective IR Sensor",
+    "voltage": "5V",
+    "current": "60mA",
+    "power": "300mW",
+    "package": "SOP-4",
+    "mounting": "Through-Hole",
+    "frequency": "IR",
+    "temp_range": "-25\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.vishay.com/docs/83760/tcrt5000.pdf",
+    "tags": [
+      "sensor",
+      "ir",
+      "reflective",
+      "line-following",
+      "optical"
+    ]
+  },
+  "TP4056": {
+    "name": "TP4056",
+    "type": "Li-Ion Battery Charger",
+    "voltage": "4-8V",
+    "current": "1A",
+    "power": "4W",
+    "package": "SOP-8",
+    "mounting": "SMD",
+    "accuracy": "\u00b11%",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://dlnmh9ip6v2uc.cloudfront.net/datasheets/Prototyping/TP4056.pdf",
+    "tags": [
+      "charger",
+      "battery",
+      "lithium",
+      "li-ion",
+      "cc-cv"
+    ]
+  },
+  "IP5306": {
+    "name": "IP5306",
+    "type": "Power Bank IC",
+    "voltage": "3.7V",
+    "current": "2.4A",
+    "power": "9W",
+    "package": "SOP-8",
+    "mounting": "SMD",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.alldatasheet.com/search/?q=IP5306",
+    "tags": [
+      "power-bank",
+      "charger",
+      "battery",
+      "boost",
+      "li-ion"
+    ]
+  },
+  "MT3608": {
+    "name": "MT3608",
+    "type": "Boost Converter",
+    "voltage": "2-24V",
+    "current": "2A",
+    "power": "24W",
+    "package": "SOT-23",
+    "mounting": "SMD",
+    "frequency": "1.2MHz",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.olimex.com/Products/Breadboarding/BB-PWR-3608/resources/MT3608.pdf",
+    "tags": [
+      "regulator",
+      "boost",
+      "switching",
+      "step-up",
+      "smd"
+    ]
+  },
+  "AMS1117-3.3": {
+    "name": "AMS1117-3.3",
+    "type": "Low Dropout Regulator",
+    "voltage": "3.3V",
+    "current": "800mA",
+    "power": "1W",
+    "package": "SOT-223",
+    "mounting": "SMD",
+    "dropout": "1.1V",
+    "accuracy": "\u00b11.5%",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.advanced-monolithic.com/pdf/ds1117.pdf",
+    "tags": [
+      "regulator",
+      "ldo",
+      "3.3v",
+      "smd",
+      "fixed"
+    ]
+  },
+  "AMS1117-5.0": {
+    "name": "AMS1117-5.0",
+    "type": "Low Dropout Regulator",
+    "voltage": "5V",
+    "current": "800mA",
+    "power": "1W",
+    "package": "SOT-223",
+    "mounting": "SMD",
+    "dropout": "1.2V",
+    "accuracy": "\u00b11.5%",
+    "temp_range": "-40\u00b0C to +125\u00b0C",
+    "datasheet_url": "https://www.advanced-monolithic.com/pdf/ds1117.pdf",
+    "tags": [
+      "regulator",
+      "ldo",
+      "5v",
+      "smd",
+      "fixed"
+    ]
+  },
+  "XC6206P332MR": {
+    "name": "XC6206P332MR",
+    "type": "Low Dropout Regulator",
+    "voltage": "3.3V",
+    "current": "200mA",
+    "power": "250mW",
+    "package": "SOT-23",
+    "mounting": "SMD",
+    "dropout": "0.3V",
+    "accuracy": "\u00b12%",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.torex-semiconductor.com/products/datasheet.php?id=115",
+    "tags": [
+      "regulator",
+      "ldo",
+      "3.3v",
+      "smd",
+      "tiny"
+    ]
+  },
+  "PC817": {
+    "name": "PC817",
+    "type": "Optocoupler",
+    "voltage": "35V",
+    "current": "50mA",
+    "power": "150mW",
+    "package": "DIP-4",
+    "mounting": "Through-Hole",
+    "frequency": "80kHz",
+    "temp_range": "-30\u00b0C to +100\u00b0C",
+    "datasheet_url": "https://www.farnell.com/datasheets/38454.pdf",
+    "tags": [
+      "optocoupler",
+      "isolation",
+      "phototransistor",
+      "galvanic"
+    ]
+  },
+  "4N35": {
+    "name": "4N35",
+    "type": "Optocoupler",
+    "voltage": "30V",
+    "current": "150mA",
+    "power": "300mW",
+    "package": "DIP-6",
+    "mounting": "Through-Hole",
+    "frequency": "10kHz",
+    "gain": "100-300",
+    "temp_range": "-55\u00b0C to +100\u00b0C",
+    "datasheet_url": "https://www.vishay.com/docs/83725/4n35.pdf",
+    "tags": [
+      "optocoupler",
+      "isolation",
+      "phototransistor"
+    ]
+  },
+  "MOC3021": {
+    "name": "MOC3021",
+    "type": "Triac Optocoupler",
+    "voltage": "400V",
+    "current": "1A",
+    "power": "150mW",
+    "package": "DIP-6",
+    "mounting": "Through-Hole",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/MOC3020-D.PDF",
+    "tags": [
+      "optocoupler",
+      "triac",
+      "ac",
+      "isolation",
+      "mains"
+    ]
+  },
+  "HC-49S-16MHZ": {
+    "name": "HC-49S 16MHz",
+    "type": "Crystal Oscillator",
+    "voltage": "5V",
+    "current": "0mA",
+    "frequency": "16MHz",
+    "package": "HC-49S",
+    "mounting": "Through-Hole",
+    "accuracy": "\u00b120ppm",
+    "temp_range": "-20\u00b0C to +70\u00b0C",
+    "datasheet_url": "https://www.abracon.com/Resonators/ABL.pdf",
+    "tags": [
+      "crystal",
+      "oscillator",
+      "16mhz",
+      "clock"
+    ]
+  },
+  "TM1637": {
+    "name": "TM1637",
+    "type": "7-Segment Display Driver",
+    "voltage": "3.3-5V",
+    "current": "80mA",
+    "power": "400mW",
+    "package": "SOP-20",
+    "mounting": "SMD",
+    "frequency": "250kHz",
+    "temp_range": "-40\u00b0C to +80\u00b0C",
+    "datasheet_url": "https://www.alldatasheet.com/search/?q=TM1637",
+    "tags": [
+      "display",
+      "7-segment",
+      "led",
+      "driver",
+      "4-digit"
+    ]
+  },
+  "MAX7219": {
+    "name": "MAX7219",
+    "type": "8-Digit Display Driver",
+    "voltage": "4-5.5V",
+    "current": "330mA",
+    "power": "1.5W",
+    "package": "DIP-24",
+    "mounting": "Through-Hole",
+    "frequency": "10MHz SPI",
+    "temp_range": "-40\u00b0C to +85\u00b0C",
+    "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX7219-MAX7221.pdf",
+    "tags": [
+      "display",
+      "7-segment",
+      "matrix",
+      "led",
+      "driver",
+      "spi"
+    ]
   }
 }

@@ -1,111 +1,116 @@
 """
-nexar_api.py — Nexar GraphQL API client.
+nexar_api.py — Nexar GraphQL API. Full spec extraction.
 """
 
-import httpx
-import time
+import httpx, time
 
 TOKEN_URL   = "https://identity.nexar.com/connect/token"
 GRAPHQL_URL = "https://api.nexar.com/graphql"
-
-CLIENT_ID     = "6a07fd92-22dc-4e83-b02f-2643676096cd"
-CLIENT_SECRET = "-HGVCqcz_pEmNpUYhM6XKOWW7-Rz5d50oBix"
+CLIENT_ID     = "1e75f9e0-d714-460c-bca0-01ae1632b912"
+CLIENT_SECRET = "wgsSXXI2MO6FmYzGm4nqWKMBzLQszk4DvUOa"
 
 _token_cache: dict = {"token": None, "expires_at": 0}
 
-_VOLTAGE_KEYS = {
-    "vsupply", "vcc", "vdd", "vout", "vin", "vds", "vce", "vceo",
-    "supply_voltage", "operating_voltage", "output_voltage", "input_voltage",
-    "voltage", "drain_voltage", "breakdown_voltage", "forward_voltage",
-    "digital_supply", "analog_supply", "logic_voltage", "recommended_voltage"
+# Nexar uses shortnames — map to our unified spec fields
+NEXAR_SPEC_MAP = {
+    "voltage":      {"vsupply","vcc","vdd","vout","vin","vds","vce","vceo",
+                     "supply_voltage","operating_voltage","output_voltage",
+                     "input_voltage","voltage","drain_voltage","forward_voltage",
+                     "breakdown_voltage","vr","vrm"},
+    "current":      {"iout","id","ic","isupply","icc","idd","output_current",
+                     "drain_current","collector_current","forward_current",
+                     "current","max_current","supply_current","if"},
+    "power":        {"pd","power","power_dissipation","ptot","pmax"},
+    "package":      {"case_package","package","case","housing","package_case"},
+    "resistance":   {"rds","rds_on","rdson","ron","esr","resistance","r"},
+    "capacitance":  {"capacitance","c","cap"},
+    "inductance":   {"inductance","l","ind"},
+    "frequency":    {"frequency","bandwidth","gbw","ft","switching_frequency",
+                     "fsw","fmax","f3db"},
+    "gain":         {"hfe","beta","gain","av","current_gain","dc_gain"},
+    "temp_min":     {"tmin","temp_min","min_temp","operating_temp_min"},
+    "temp_max":     {"tmax","temp_max","max_temp","operating_temp_max"},
+    "rds_on":       {"rds_on","rdson","r_ds_on"},
+    "vgs_th":       {"vgs_th","vgsth","gate_threshold","vth"},
+    "dropout":      {"dropout","vdropout","headroom"},
+    "accuracy":     {"accuracy","tolerance","initial_accuracy"},
+    "logic_family": {"logic_family","technology","tech"},
+    "mounting":     {"mounting","mounting_style"},
+    "type":         {"type","function","device_type","component_type",
+                     "transistor_type","category"},
 }
-_CURRENT_KEYS = {
-    "iout", "id", "ic", "isupply", "icc", "idd",
-    "output_current", "drain_current", "collector_current",
-    "forward_current", "current", "max_current",
-    "supply_current", "quiescent_current", "operating_current"
-}
-_TYPE_KEYS = {
-    "type", "function", "device_type", "component_type",
-    "transistor_type", "sensor_type", "category", "subcategory"
-}
+
+DISPLAY_ORDER = [
+    "type","voltage","current","power","resistance","capacitance",
+    "inductance","frequency","gain","rds_on","vgs_th","dropout",
+    "accuracy","logic_family","temp_range","package","mounting"
+]
 
 
 async def _get_token() -> str:
     now = time.time()
     if _token_cache["token"] and now < _token_cache["expires_at"]:
         return _token_cache["token"]
-
     async with httpx.AsyncClient(timeout=10.0) as client:
         r = await client.post(TOKEN_URL, data={
-            "grant_type":    "client_credentials",
-            "client_id":     CLIENT_ID,
-            "client_secret": CLIENT_SECRET,
+            "grant_type":"client_credentials",
+            "client_id":CLIENT_ID,"client_secret":CLIENT_SECRET
         })
         r.raise_for_status()
-        data = r.json()
-
-    token      = data.get("access_token", "")
-    expires_in = data.get("expires_in", 86400)
-    _token_cache["token"]      = token
-    _token_cache["expires_at"] = now + expires_in - 60
-    return token
+        d = r.json()
+    _token_cache["token"]      = d.get("access_token","")
+    _token_cache["expires_at"] = now + d.get("expires_in",86400) - 60
+    return _token_cache["token"]
 
 
 async def search_nexar(part_name: str) -> dict:
-    """Search Nexar GraphQL. Returns normalized dict or {} on failure."""
     try:
         token = await _get_token()
     except Exception as e:
         print(f"[nexar] token failed: {e}")
         return {}
 
-    query = {
-        "query": f"""
-        {{
-          supSearch(q: "{part_name}", limit: 1) {{
-            results {{
-              part {{
-                mpn
-                manufacturer {{ name }}
-                shortDescription
-                bestDatasheet {{ url }}
-                category {{ name }}
-                specs {{
-                  attribute {{ shortname name }}
-                  displayValue
-                }}
+    query = {"query": f"""
+    {{
+      supSearch(q: "{part_name}", limit: 1) {{
+        results {{
+          part {{
+            mpn
+            manufacturer {{ name }}
+            shortDescription
+            bestDatasheet {{ url }}
+            category {{ name }}
+            specs {{ attribute {{ shortname name }} displayValue }}
+            sellers(limit: 3) {{
+              company {{ name }}
+              offers {{
+                prices {{ quantity price currency }}
+                inventoryLevel
               }}
             }}
           }}
         }}
-        """
-    }
+      }}
+    }}
+    """}
 
     try:
         async with httpx.AsyncClient(timeout=15.0) as client:
-            r = await client.post(
-                GRAPHQL_URL,
-                json=query,
-                headers={
-                    "Authorization": f"Bearer {token}",
-                    "Content-Type":  "application/json",
-                }
-            )
+            r = await client.post(GRAPHQL_URL, json=query, headers={
+                "Authorization":f"Bearer {token}","Content-Type":"application/json"
+            })
             r.raise_for_status()
             data = r.json()
     except Exception as e:
         print(f"[nexar] request failed: {e}")
         return {}
 
-    gql_data = data.get("data") or {}
-    if not gql_data:
-        print(f"[nexar] null data: {data.get('errors', [])}")
+    gql = data.get("data") or {}
+    if not gql:
         return {}
 
-    results = gql_data.get("supSearch", {}).get("results", [])
+    results = gql.get("supSearch",{}).get("results",[])
     if not results:
-        print(f"[nexar] no results for '{part_name}'")
         return {}
 
     part = results[0].get("part")
@@ -113,47 +118,80 @@ async def search_nexar(part_name: str) -> dict:
         return {}
 
     specs_list = part.get("specs") or []
-    if specs_list:
-        print(f"[nexar] spec keys: {[s.get('attribute',{}).get('shortname') for s in specs_list[:8]]}")
+    specs = _extract_all_specs(specs_list)
 
-    specs = _parse_specs(specs_list)
-
-    # Use category as type fallback
-    if not specs["type"]:
-        cat = (part.get("category") or {}).get("name", "")
+    # Category fallback
+    if not specs.get("type"):
+        cat = (part.get("category") or {}).get("name","")
         if cat:
             specs["type"] = cat
 
-    best_ds = part.get("bestDatasheet") or {}
-    ds_url  = best_ds.get("url") or \
-              f"https://www.alldatasheet.com/search/?q={part['mpn']}"
+    pricing  = _parse_pricing(part.get("sellers",[]))
+    best_ds  = part.get("bestDatasheet") or {}
+    ds_url   = best_ds.get("url") or f"https://www.alldatasheet.com/search/?q={part['mpn']}"
 
-    print(f"[nexar] hit for '{part_name}' → {part['mpn']} specs={specs}")
+    print(f"[nexar] '{part_name}' → {part['mpn']} | {len(specs)} spec fields")
     return {
         "name":          part["mpn"],
-        "description":   part.get("shortDescription", ""),
-        "manufacturer":  (part.get("manufacturer") or {}).get("name", ""),
+        "description":   part.get("shortDescription",""),
+        "manufacturer":  (part.get("manufacturer") or {}).get("name",""),
         "specs":         specs,
+        "pricing":       pricing,
         "datasheet_url": ds_url,
         "source":        "nexar",
     }
 
 
-def _parse_specs(specs_list: list) -> dict:
-    result = {"type": "", "voltage": "", "current": ""}
+def _extract_all_specs(specs_list: list) -> dict:
+    result = {}
     for spec in specs_list:
         attr      = spec.get("attribute") or {}
-        shortname = attr.get("shortname", "").lower()
-        fullname  = attr.get("name", "").lower()
+        shortname = attr.get("shortname","").lower()
+        fullname  = attr.get("name","").lower()
         value     = (spec.get("displayValue") or "").strip()
-        if not value or value in {"-", "N/A"}:
+        if not value or value.lower() in {"-","n/a","—"}:
             continue
-        # Match on both shortname and full name
-        for key in [shortname, fullname]:
-            if not result["type"]    and any(k in key for k in _TYPE_KEYS):
-                result["type"]    = value; break
-            if not result["voltage"] and any(k in key for k in _VOLTAGE_KEYS):
-                result["voltage"] = value; break
-            if not result["current"] and any(k in key for k in _CURRENT_KEYS):
-                result["current"] = value; break
+
+        for field, keys in NEXAR_SPEC_MAP.items():
+            if field not in result:
+                if shortname in keys or fullname in keys or \
+                   any(k in shortname for k in keys) or \
+                   any(k in fullname  for k in keys):
+                    result[field] = value
+                    break
+
+    # Temperature range
+    if result.get("temp_min") or result.get("temp_max"):
+        result["temp_range"] = f"{result.get('temp_min','')} to {result.get('temp_max','')}".strip(" to")
+
+    return result
+
+
+def _parse_pricing(sellers: list) -> dict:
+    result = {"qty1":"","qty10":"","qty100":"","currency":"USD","seller":""}
+    if not sellers:
+        return result
+
+    best_prices, best_seller = [], ""
+    for seller in sellers:
+        for offer in seller.get("offers",[]):
+            prices = offer.get("prices",[])
+            if len(prices) > len(best_prices):
+                best_prices = prices
+                best_seller = seller.get("company",{}).get("name","")
+
+    result["seller"] = best_seller
+    for pb in sorted(best_prices, key=lambda x: x.get("quantity",0)):
+        qty = pb.get("quantity",0)
+        try:
+            ps = f"${float(pb.get('price',0)):.4f}"
+        except:
+            continue
+        result["currency"] = pb.get("currency","USD")
+        if qty <= 1   and not result["qty1"]:   result["qty1"]   = ps
+        elif qty <= 10  and not result["qty10"]:  result["qty10"]  = ps
+        elif qty <= 100 and not result["qty100"]: result["qty100"] = ps
+
+    if not result["qty10"]  and result["qty1"]:  result["qty10"]  = result["qty1"]
+    if not result["qty100"] and result["qty10"]: result["qty100"] = result["qty10"]
     return result

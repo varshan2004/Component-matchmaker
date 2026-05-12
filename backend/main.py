@@ -68,16 +68,32 @@ async def get_component(name: str = Query(..., min_length=1)):
     datasheet_url = ""
     description   = ""
     api_source    = None
+    pricing       = {}
 
     if dataset_entry:
         print(f"[component] dataset hit: '{name}'")
-        specs = {
-            "type":    dataset_entry.get("type", ""),
-            "voltage": dataset_entry.get("voltage", ""),
-            "current": dataset_entry.get("current", ""),
-        }
+        # Extract ALL available spec fields from dataset entry
+        _SPEC_FIELDS = [
+            "type","voltage","current","power","package","mounting",
+            "resistance","capacitance","inductance","frequency","gain",
+            "temp_range","temp_min","temp_max","rds_on","vgs_th",
+            "dropout","accuracy","logic_family"
+        ]
+        specs = {k: dataset_entry.get(k,"") for k in _SPEC_FIELDS if dataset_entry.get(k)}
         datasheet_url = dataset_entry.get("datasheet_url", "")
         canonical     = dataset_entry["name"]
+
+        # Fetch pricing from distributors even for dataset parts
+        print(f"[component] fetching pricing for dataset part '{name}'")
+        m_res, n_res = await asyncio.gather(
+            _safe_api(search_mouser, name),
+            _safe_api(search_nexar,  name),
+        )
+        for api_res in [m_res, n_res]:
+            if api_res and api_res.get("pricing", {}).get("qty1"):
+                pricing = api_res["pricing"]
+                print(f"[component] pricing from {api_res.get('source')}: {pricing.get('qty1')}")
+                break
 
     else:
         canonical = name
@@ -105,6 +121,7 @@ async def get_component(name: str = Query(..., min_length=1)):
                 "voltage": api_specs.get("voltage", ""),
                 "current": api_specs.get("current", ""),
             }
+            pricing       = api_data.get("pricing", {})
             if not description:
                 description = api_data.get("description", "")
             if not datasheet_url:
@@ -185,6 +202,7 @@ async def get_component(name: str = Query(..., min_length=1)):
         "description":   final_description,
         "specs":         specs,
         "datasheet_url": datasheet_url,
+        "pricing":       pricing,
         "source":        source,
     }
 
@@ -224,8 +242,54 @@ async def get_alternatives(name: str = Query(..., min_length=1)):
         print(f"[alternatives] no dataset matches for '{canonical}', asking AI")
         found = await generate_alternatives(canonical, specs)
 
-    return {"component": canonical, "specs": specs, "alternatives": found}
+    # Enrich each alternative with its full dataset specs
+    _SPEC_FIELDS = [
+        "type","voltage","current","power","package","mounting",
+        "resistance","capacitance","inductance","frequency","gain",
+        "temp_range","rds_on","vgs_th","dropout","accuracy","logic_family"
+    ]
+    enriched = []
+    for alt in found:
+        alt_entry = _dataset_lookup(alt.get("name",""))
+        if alt_entry:
+            # Merge full dataset specs into the alternative
+            full_specs = {k: alt_entry.get(k,"") for k in _SPEC_FIELDS if alt_entry.get(k)}
+            alt = {**alt, "specs": full_specs,
+                   "datasheet_url": alt_entry.get("datasheet_url","")}
+        else:
+            # Build specs dict from top-level fields for non-dataset alts
+            alt_specs = {k: alt.get(k,"") for k in _SPEC_FIELDS if alt.get(k)}
+            alt = {**alt, "specs": alt_specs}
+        enriched.append(alt)
 
+    return {"component": canonical, "specs": specs, "alternatives": enriched}
+
+
+
+@app.get("/pricing")
+async def get_pricing(name: str = Query(..., min_length=1)):
+    """
+    GET /pricing?name=BC547
+    Returns live pricing from Mouser + Nexar.
+    Used by frontend to fetch pricing for alternatives in parallel.
+    """
+    cached = database.get_cached(name)
+    if cached and cached.get("pricing", {}).get("qty1"):
+        return {"name": name, "pricing": cached["pricing"], "source": "cache"}
+
+    dataset_entry = _dataset_lookup(name)
+    lookup_name   = dataset_entry["name"] if dataset_entry else name
+
+    mouser_res, nexar_res = await asyncio.gather(
+        _safe_api(search_mouser, lookup_name),
+        _safe_api(search_nexar,  lookup_name),
+    )
+    for res in [mouser_res, nexar_res]:
+        if res and res.get("pricing", {}).get("qty1"):
+            print(f"[pricing] '{name}' → {res['pricing'].get('qty1')} from {res.get('source')}")
+            return {"name": name, "pricing": res["pricing"], "source": res.get("source")}
+
+    return {"name": name, "pricing": {}, "source": "none"}
 
 @app.get("/health")
 async def health():
